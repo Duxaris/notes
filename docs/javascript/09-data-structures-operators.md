@@ -9,6 +9,7 @@
   - **Object destructuring**: `const {name, age} = object`
   - Default values, variable renaming, nested destructuring
   - Swapping variables, function parameters
+  - **Why useful**: Cleaner code, less repetition, easier data extraction from complex structures
 
 - **Spread Operator (...)**
 
@@ -17,6 +18,7 @@
   - **Object spreading**: `{...obj1, ...obj2}`
   - Function arguments, copying arrays/objects
   - Since ES2018: works with objects too
+  - **Mental model**: Like unpacking a suitcase - takes everything out and spreads it
 
 - **Rest Pattern (...)**
 
@@ -24,46 +26,49 @@
   - **Rest in destructuring**: `const [a, ...others] = array`
   - **Rest parameters**: `function(...args)`
   - Always last element, opposite of spread
+  - **Memory trick**: REST = collect the REST of the elements
 
 - **Short-Circuiting (&& and ||)**
 
-  - **OR (||)**: Returns first truthy value or last value
-  - **AND (&&)**: Returns first falsy value or last value
-  - **Nullish Coalescing (??)**: Only null/undefined are falsy
+  - **OR (||)**: Returns first truthy value or last value (great for default values)
+  - **AND (&&)**: Returns first falsy value or last value (perfect for conditional execution)
+  - **Nullish Coalescing (??)**: Only null/undefined are falsy (more precise than ||)
   - Useful for default values and conditional execution
+  - **Performance benefit**: Stops evaluating as soon as result is determined
 
 - **Sets and Maps**
-  - **Set**: Collection of unique values
-  - **Map**: Key-value pairs with any data type as keys
+  - **Set**: Collection of unique values (like a bag that automatically removes duplicates)
+  - **Map**: Key-value pairs with any data type as keys (more flexible than objects)
   - Methods: add, delete, has, clear, size
   - Iteration with for-of loops
+  - **When to use**: Sets for uniqueness, Maps when you need non-string keys or ordered data
 
 ## Code Patterns
 
 ### Destructuring Arrays
 
 ```js
-// Basic array destructuring
+// Basic array destructuring - extract values by position
 const arr = [2, 3, 4];
-const [x, y, z] = arr;
+const [x, y, z] = arr; // x gets first, y gets second, z gets third
 console.log(x, y, z); // 2, 3, 4
 
-// Skipping elements
-const [first, , third] = arr;
+// Skipping elements - use empty space for elements you don't need
+const [first, , third] = arr; // Skip the middle element
 console.log(first, third); // 2, 4
 
-// Default values
-const [p = 1, q = 1, r = 1] = [8, 9];
+// Default values - fallback if array doesn't have enough elements
+const [p = 1, q = 1, r = 1] = [8, 9]; // r gets default value since only 2 elements
 console.log(p, q, r); // 8, 9, 1
 
-// Switching variables
+// Switching variables - elegant way to swap values
 let [main, secondary] = ['Italian', 'Spanish'];
-[main, secondary] = [secondary, main];
+[main, secondary] = [secondary, main]; // No temp variable needed!
 console.log(main, secondary); // Spanish, Italian
 
-// Nested destructuring
+// Nested destructuring - destructure arrays inside arrays
 const nested = [2, 4, [5, 6]];
-const [i, , [j, k]] = nested;
+const [i, , [j, k]] = nested; // Go deeper into the nested array
 console.log(i, j, k); // 2, 5, 6
 
 // Restaurant example
@@ -142,25 +147,25 @@ restaurant.orderDelivery({
 ### Spread Operator
 
 ```js
-// Array spreading
+// Array spreading - unpack array elements
 const arr = [7, 8, 9];
-const badNewArr = [1, 2, arr[0], arr[1], arr[2]]; // Manual way
-const newArr = [1, 2, ...arr]; // Spread operator
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]]; // Manual way (tedious!)
+const newArr = [1, 2, ...arr]; // Spread operator - much cleaner!
 console.log(newArr); // [1, 2, 7, 8, 9]
 
-// Copying arrays
-const mainMenuCopy = [...restaurant.mainMenu];
+// Copying arrays - creates a shallow copy, not a reference
+const mainMenuCopy = [...restaurant.mainMenu]; // Safe to modify without affecting original
 
-// Joining arrays
+// Joining arrays - combine multiple arrays elegantly
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(menu);
+console.log(menu); // All menu items in one array
 
-// Iterables: arrays, strings, maps, sets. NOT objects
+// Iterables: arrays, strings, maps, sets. NOT objects (until ES2018)
 const str = 'Jonas';
-const letters = [...str, ' ', 'S.'];
+const letters = [...str, ' ', 'S.']; // Spread string into individual characters
 console.log(letters); // ['J', 'o', 'n', 'a', 's', ' ', 'S.']
 
-// Real-world example: function arguments
+// Real-world example: function arguments (spread array into parameters)
 const ingredients = [
   prompt("Let's make pasta! Ingredient 1?"),
   prompt('Ingredient 2?'),
@@ -197,12 +202,12 @@ const [pizza, , risotto, ...otherFood] = [
 ];
 console.log(pizza, risotto, otherFood);
 
-// Rest in objects
+// Rest in objects (collect remaining properties)
 const { sat, ...weekdays } = restaurant.openingHours;
-console.log(weekdays);
+console.log(weekdays); // All days except Saturday
 
-// Rest parameters in functions
-const add = function (...numbers) {
+// Rest parameters in functions (variable number of arguments)
+const add = function (...numbers) { // Collect all arguments into an array
   let sum = 0;
   for (let i = 0; i < numbers.length; i++) {
     sum += numbers[i];
@@ -210,18 +215,18 @@ const add = function (...numbers) {
   return sum;
 };
 
-console.log(add(2, 3)); // 5
+console.log(add(2, 3)); // 5 - works with any number of arguments
 console.log(add(5, 3, 7, 2)); // 17
 console.log(add(8, 2, 5, 3, 2, 1, 4)); // 25
 
-// Using spread with rest parameters
+// Using spread with rest parameters (spread array into individual arguments)
 const x = [23, 5, 7];
-console.log(add(...x)); // 35
+console.log(add(...x)); // 35 - spread array elements as separate arguments
 
-// Restaurant order function with rest
+// Restaurant order function with rest (first parameter + collect the rest)
 restaurant.orderPizza = function (mainIngredient, ...otherIngredients) {
-  console.log(mainIngredient);
-  console.log(otherIngredients);
+  console.log(mainIngredient); // First argument
+  console.log(otherIngredients); // Array of remaining arguments
 };
 
 restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
@@ -232,40 +237,41 @@ restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
 ### Short-Circuiting
 
 ```js
-// OR operator (||)
-console.log(3 || 'Jonas'); // 3
-console.log('' || 'Jonas'); // 'Jonas'
-console.log(true || 0); // true
-console.log(undefined || null); // null
+// OR operator (||) - returns first TRUTHY value or last value
+console.log(3 || 'Jonas'); // 3 (first truthy value)
+console.log('' || 'Jonas'); // 'Jonas' (empty string is falsy)
+console.log(true || 0); // true (already truthy, stops here)
+console.log(undefined || null); // null (both falsy, returns last)
 
-// Practical use: default values
+// Practical use: default values (but watch out for 0!)
 restaurant.numGuests = 0;
-const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
-const guests2 = restaurant.numGuests || 10;
-console.log(guests1, guests2); // 0, 10 (problematic with 0!)
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10; // Traditional ternary
+const guests2 = restaurant.numGuests || 10; // Short-circuit OR
+console.log(guests1, guests2); // 0, 10 (problematic! 0 is falsy but valid number)
 
-// AND operator (&&)
-console.log(0 && 'Jonas'); // 0
-console.log(7 && 'Jonas'); // 'Jonas'
-console.log('Hello' && 23 && null && 'jonas'); // null
+// AND operator (&&) - returns first FALSY value or last value
+console.log(0 && 'Jonas'); // 0 (first falsy value, stops here)
+console.log(7 && 'Jonas'); // 'Jonas' (all truthy, returns last)
+console.log('Hello' && 23 && null && 'jonas'); // null (first falsy value)
 
-// Practical use: conditional execution
-if (restaurant.orderPizza) {
+// Practical use: conditional execution (cleaner than if statements)
+if (restaurant.orderPizza) { // Traditional way
   restaurant.orderPizza('mushrooms', 'spinach');
 }
 
-restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach'); // Short-circuit way
+// Only calls the function if it exists (truthy)
 
-// Nullish coalescing operator (??) - ES2020
+// Nullish coalescing operator (??) - ES2020 - solves the || problem with 0 and ''
 restaurant.numGuests = 0;
-const guests3 = restaurant.numGuests ?? 10;
-console.log(guests3); // 0 (correct!)
+const guests3 = restaurant.numGuests ?? 10; // Only triggers for null/undefined
+console.log(guests3); // 0 (correct! 0 is not nullish)
 
-// Only null and undefined are falsy for ??
-console.log(null ?? 'default'); // 'default'
-console.log(undefined ?? 'default'); // 'default'
-console.log(0 ?? 'default'); // 0
-console.log('' ?? 'default'); // ''
+// Only null and undefined are falsy for ?? (more precise than ||)
+console.log(null ?? 'default'); // 'default' (null is nullish)
+console.log(undefined ?? 'default'); // 'default' (undefined is nullish)
+console.log(0 ?? 'default'); // 0 (0 is NOT nullish)
+console.log('' ?? 'default'); // '' (empty string is NOT nullish)
 ```
 
 ### Logical Assignment Operators (ES2021)
@@ -273,17 +279,18 @@ console.log('' ?? 'default'); // ''
 ```js
 const rest1 = {
   name: 'Capri',
-  numGuests: 0,
+  numGuests: 0, // This is a valid value, not missing!
 };
 
 const rest2 = {
   name: 'La Piazza',
   owner: 'Giovanni Rossi',
+  // numGuests is missing (undefined)
 };
 
-// OR assignment operator (||=)
-rest1.numGuests = rest1.numGuests || 10;
-rest2.numGuests = rest2.numGuests || 10;
+// OR assignment operator (||=) - assigns if current value is falsy
+rest1.numGuests = rest1.numGuests || 10; // Problem: 0 becomes 10!
+rest2.numGuests = rest2.numGuests || 10; // Good: undefined becomes 10
 
 // Same as:
 rest1.numGuests ||= 10;

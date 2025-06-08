@@ -8,35 +8,40 @@
   - **Call stack**: Execution context stack (LIFO - Last In, First Out)
   - **Heap**: Memory allocation for objects
   - **Compilation vs Interpretation**: JS is interpreted and just-in-time compiled
+  - **Mental model**: Think of the engine as a factory that processes your code line by line
 
 - **Execution Context**
 
   - Environment where JavaScript code is executed
-  - **Global Execution Context**: Created for top-level code
-  - **Function Execution Context**: Created for each function call
+  - **Global Execution Context**: Created for top-level code (the main "room" where code runs)
+  - **Function Execution Context**: Created for each function call (temporary "rooms" for functions)
   - Contains: Variable Environment, Scope Chain, `this` keyword
+  - **Analogy**: Like different rooms in a house, each with their own environment and access rules
 
 - **Hoisting**
 
   - Variables and function declarations are "moved" to the top
-  - **Function declarations**: Fully hoisted (can call before declaration)
-  - **var variables**: Hoisted but initialized with `undefined`
-  - **let/const**: Hoisted but in "temporal dead zone"
-  - **Function expressions/arrows**: Not hoisted
+  - **Function declarations**: Fully hoisted (can call before declaration - like having a phone book)
+  - **var variables**: Hoisted but initialized with `undefined` (placeholder exists but empty)
+  - **let/const**: Hoisted but in "temporal dead zone" (exists but inaccessible until declaration)
+  - **Function expressions/arrows**: Not hoisted (treated as variables)
+  - **Why it matters**: Understanding hoisting prevents bugs and explains unexpected behavior
 
 - **Scope and Scope Chain**
 
-  - **Global scope**: Accessible everywhere
-  - **Function scope**: Accessible only within function
-  - **Block scope**: `let`/`const` are block-scoped, `var` is not
-  - **Scope chain**: Inner scopes have access to outer scopes
+  - **Global scope**: Accessible everywhere (like public areas in a building)
+  - **Function scope**: Accessible only within function (like private offices)
+  - **Block scope**: `let`/`const` are block-scoped, `var` is not (like locked rooms vs open doors)
+  - **Scope chain**: Inner scopes have access to outer scopes (like nested Russian dolls)
+  - **Key rule**: Variables look "outward" for access, never "inward"
 
 - **The `this` Keyword**
   - Refers to the object that is executing the current function
-  - **Method**: `this` = object calling the method
+  - **Method**: `this` = object calling the method (the owner of the method)
   - **Simple function call**: `this` = undefined (strict mode) / window (non-strict)
-  - **Arrow functions**: `this` = lexical `this` (parent scope)
-  - **Event listeners**: `this` = DOM element
+  - **Arrow functions**: `this` = lexical `this` (inherits from parent scope - like a chameleon)
+  - **Event listeners**: `this` = DOM element (the element that triggered the event)
+  - **Remember**: `this` is determined by HOW a function is called, not WHERE it's defined
 
 ## Code Patterns
 
@@ -53,27 +58,31 @@ function addDeclaration(a, b) {
 // Variable hoisting
 console.log(me); // undefined (not error!)
 console.log(job); // ReferenceError: Cannot access 'job' before initialization
+// Variable hoisting demonstration
+console.log(me); // undefined (var is hoisted but not initialized)
+console.log(job); // ReferenceError: Cannot access 'job' before initialization
 console.log(year); // ReferenceError: Cannot access 'year' before initialization
 
-var me = 'Jonas';
-let job = 'teacher';
-const year = 1991;
+var me = 'Jonas'; // var: hoisted with undefined value
+let job = 'teacher'; // let: hoisted but in temporal dead zone
+const year = 1991; // const: hoisted but in temporal dead zone
 
-// Function expressions and hoisting
-console.log(addExpression); // undefined
+// Function expressions and hoisting (treated like variables)
+console.log(addExpression); // undefined (var is hoisted)
 console.log(addExpression(2, 3)); // TypeError: addExpression is not a function
 
 var addExpression = function (a, b) {
   return a + b;
-};
+}; // Function expression: not hoisted like function declarations
 
-// Arrow functions and hoisting
+// Arrow functions and hoisting (same as function expressions)
 console.log(addArrow); // ReferenceError: Cannot access 'addArrow' before initialization
 
-const addArrow = (a, b) => a + b;
+const addArrow = (a, b) => a + b; // Arrow function: follows const hoisting rules
 
-// Hoisting gotcha
-if (!numProducts) deleteShoppingCart(); // This will run!
+// Hoisting gotcha - why var can be dangerous
+if (!numProducts) deleteShoppingCart(); // This will run because numProducts is undefined!
+// numProducts is hoisted as undefined, so !undefined = true
 
 var numProducts = 10;
 
@@ -156,40 +165,41 @@ calcAge(1991);
 ### The `this` Keyword
 
 ```js
-// Global this
-console.log(this); // Window object (in browser)
+// Global this - in the global scope
+console.log(this); // Window object (in browser) - the global object
 
-// Function this
+// Function this - regular function call
 const calcAge = function (birthYear) {
   console.log(2037 - birthYear);
-  console.log(this); // undefined (strict mode)
+  console.log(this); // undefined (strict mode) - no owner object
 };
-calcAge(1991);
+calcAge(1991); // Called as a regular function, not a method
 
-// Arrow function this (lexical this)
+// Arrow function this (lexical this) - inherits from parent scope
 const calcAgeArrow = (birthYear) => {
   console.log(2037 - birthYear);
-  console.log(this); // Window object (parent scope)
+  console.log(this); // Window object (parent scope) - arrow functions don't have their own this
 };
-calcAgeArrow(1980);
+calcAgeArrow(1980); // Arrow function inherits this from surrounding context
 
-// Method this
+// Method this - function called as a method of an object
 const jonas = {
   year: 1991,
   calcAge: function () {
-    console.log(this); // jonas object
-    console.log(2037 - this.year);
+    console.log(this); // jonas object - the object that called the method
+    console.log(2037 - this.year); // Access properties of the calling object
   },
 };
-jonas.calcAge();
+jonas.calcAge(); // Called as jonas.calcAge(), so this = jonas
 
-// Method borrowing
+// Method borrowing - same function, different this
 const matilda = {
   year: 2017,
 };
 
-matilda.calcAge = jonas.calcAge; // Method borrowing
-matilda.calcAge(); // this = matilda object
+matilda.calcAge = jonas.calcAge; // Copy the function to matilda
+matilda.calcAge(); // Now this = matilda object (different owner!)
+// Key point: this is determined by WHO calls the function, not where it's defined
 
 // Function call
 const f = jonas.calcAge;

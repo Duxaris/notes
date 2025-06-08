@@ -8,6 +8,7 @@
   - JavaScript can read, change, and manipulate HTML elements
   - Each HTML element is a DOM node
   - DOM is not part of JavaScript language, it's a Web API
+  - **Think of it as**: A bridge between HTML and JavaScript that allows dynamic web pages
 
 - **Selecting Elements**
 
@@ -16,22 +17,25 @@
   - `document.getElementById()`: Select by ID
   - `document.getElementsByClassName()`: Select by class name
   - `document.getElementsByTagName()`: Select by tag name
+  - **Best practice**: Use `querySelector()` and `querySelectorAll()` for consistency and flexibility
 
 - **Manipulating Elements**
 
-  - `textContent`: Get/set text content
-  - `innerHTML`: Get/set HTML content
-  - `value`: Get/set input values
-  - `style`: Modify CSS styles
-  - `classList`: Add/remove/toggle CSS classes
+  - `textContent`: Get/set text content (safer, no HTML parsing)
+  - `innerHTML`: Get/set HTML content (can insert HTML elements)
+  - `value`: Get/set input values (for form elements)
+  - `style`: Modify CSS styles (inline styles only)
+  - `classList`: Add/remove/toggle CSS classes (preferred over className)
   - `setAttribute()`: Set HTML attributes
+  - **Performance tip**: Cache DOM selections in variables to avoid repeated queries
 
 - **Events and Event Handling**
-  - Events: Actions that happen on the webpage
-  - Event listeners: Functions that respond to events
+  - Events: Actions that happen on the webpage (user interactions, page loading, etc.)
+  - Event listeners: Functions that respond to events (like a doorbell responding to a button press)
   - Common events: click, keydown, load, submit, mouseover
-  - `addEventListener()`: Modern way to handle events
-  - Event object: Contains information about the event
+  - `addEventListener()`: Modern way to handle events (allows multiple listeners)
+  - Event object: Contains information about the event (which key, mouse position, etc.)
+  - **Key insight**: Events make web pages interactive and responsive to user actions
 
 ## Code Patterns
 
@@ -45,47 +49,47 @@ const number = document.querySelector('.number');
 const guess = document.querySelector('.guess');
 const checkBtn = document.querySelector('.check');
 
-// Reading content
-console.log(message.textContent); // Get text content
-console.log(guess.value); // Get input value
+// Reading content (always returns strings)
+console.log(message.textContent); // Get text content - safer than innerHTML
+console.log(guess.value); // Get input value - always a string, convert if needed
 
-// Modifying content
-message.textContent = 'Correct Number!';
-score.textContent = 20;
-number.textContent = 13;
+// Modifying content (immediate visual feedback)
+message.textContent = 'Correct Number!'; // Replaces all text content
+score.textContent = 20; // Numbers are automatically converted to strings
+number.textContent = 13; // Updates what user sees on screen
 
-// Modifying styles
-message.style.color = '#60b347';
-number.style.width = '30rem';
-document.querySelector('body').style.backgroundColor = '#60b347';
+// Modifying styles (inline CSS - highest priority)
+message.style.color = '#60b347'; // Changes text color immediately
+number.style.width = '30rem'; // Dynamically resize elements
+document.querySelector('body').style.backgroundColor = '#60b347'; // Page-wide changes
 
-// Working with CSS classes
-message.classList.add('success');
-message.classList.remove('error');
-message.classList.toggle('highlight');
-message.classList.contains('success'); // returns boolean
+// Working with CSS classes (preferred method for styling)
+message.classList.add('success'); // Add a CSS class
+message.classList.remove('error'); // Remove a CSS class
+message.classList.toggle('highlight'); // Add if not present, remove if present
+message.classList.contains('success'); // Check if class exists - returns boolean
 ```
 
 ### Event Handling
 
 ```js
-// Basic event listener
+// Basic event listener - anonymous function approach
 document.querySelector('.check').addEventListener('click', function () {
-  const guess = Number(document.querySelector('.guess').value);
+  const guess = Number(document.querySelector('.guess').value); // Convert string to number
   console.log(guess, typeof guess);
 
-  if (!guess) {
+  if (!guess) { // Falsy values: 0, '', null, undefined, NaN
     document.querySelector('.message').textContent = 'No number!';
   }
 });
 
-// Event listener with named function
+// Event listener with named function - better for reusability and debugging
 function handleCheck() {
   const guess = Number(document.querySelector('.guess').value);
 
   if (!guess) {
     document.querySelector('.message').textContent = 'No number!';
-  } else if (guess === secretNumber) {
+  } else if (guess === secretNumber) { // Use === for strict equality
     document.querySelector('.message').textContent = 'Correct Number!';
   } else if (guess > secretNumber) {
     document.querySelector('.message').textContent = 'Too high!';
@@ -94,14 +98,14 @@ function handleCheck() {
   }
 }
 
-document.querySelector('.check').addEventListener('click', handleCheck);
+document.querySelector('.check').addEventListener('click', handleCheck); // Pass function reference, not call
 
-// Keyboard events
+// Keyboard events - listen to entire document for global key presses
 document.addEventListener('keydown', function (event) {
-  console.log(event.key); // Which key was pressed
+  console.log(event.key); // Which key was pressed ('Enter', 'Escape', 'a', etc.)
 
-  if (event.key === 'Escape') {
-    // Handle escape key
+  if (event.key === 'Escape') { // Check specific key
+    // Handle escape key - common pattern for closing modals
     closeModal();
   }
 });
