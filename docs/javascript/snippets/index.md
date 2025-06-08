@@ -5,6 +5,7 @@ This section contains practical, reusable JavaScript utility functions and code 
 ## 📁 Available Snippets
 
 ### Utility Functions
+
 - [mergePresets.js](mergePresets.md) - Smart object merging with preset configurations
 - [getUserInitials.js](getUserInitials.md) - Extract user initials from names
 - [sessionTimerUtils.js](sessionTimerUtils.md) - Session management and timer utilities
@@ -32,6 +33,7 @@ When using these snippets:
 ## 🔧 Contributing
 
 Feel free to:
+
 - Suggest improvements to existing snippets
 - Add new utility functions
 - Share your own useful code patterns
@@ -39,4 +41,4 @@ Feel free to:
 
 ---
 
-*These snippets are designed to be production-ready but always test in your specific environment.*
+_These snippets are designed to be production-ready but always test in your specific environment._

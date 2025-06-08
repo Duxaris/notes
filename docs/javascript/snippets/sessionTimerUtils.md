@@ -11,24 +11,29 @@ A comprehensive set of utilities for managing user sessions, activity tracking, 
 class SessionTimer {
   constructor(options = {}) {
     this.timeoutDuration = options.timeoutDuration || 30 * 60 * 1000; // 30 minutes default
-    this.warningDuration = options.warningDuration || 5 * 60 * 1000;  // 5 minutes default
+    this.warningDuration = options.warningDuration || 5 * 60 * 1000; // 5 minutes default
     this.onWarning = options.onWarning || (() => {});
     this.onTimeout = options.onTimeout || (() => {});
     this.onActivity = options.onActivity || (() => {});
     this.onTick = options.onTick || (() => {});
-    
+
     this.timeoutId = null;
     this.warningId = null;
     this.tickId = null;
     this.lastActivity = Date.now();
     this.isActive = false;
     this.isWarningShown = false;
-    
+
     // Events that constitute user activity
     this.activityEvents = options.activityEvents || [
-      'mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'
+      'mousedown',
+      'mousemove',
+      'keypress',
+      'scroll',
+      'touchstart',
+      'click',
     ];
-    
+
     this.bindMethods();
   }
 
@@ -42,19 +47,19 @@ class SessionTimer {
    */
   start() {
     if (this.isActive) return;
-    
+
     this.isActive = true;
     this.lastActivity = Date.now();
     this.isWarningShown = false;
-    
+
     // Add activity listeners
-    this.activityEvents.forEach(event => {
+    this.activityEvents.forEach((event) => {
       document.addEventListener(event, this.handleActivity, true);
     });
-    
+
     // Start the session check timer
     this.scheduleNext();
-    
+
     // Optional: Start tick timer for countdown displays
     if (this.onTick) {
       this.startTicking();
@@ -66,14 +71,14 @@ class SessionTimer {
    */
   stop() {
     if (!this.isActive) return;
-    
+
     this.isActive = false;
-    
+
     // Remove activity listeners
-    this.activityEvents.forEach(event => {
+    this.activityEvents.forEach((event) => {
       document.removeEventListener(event, this.handleActivity, true);
     });
-    
+
     // Clear all timers
     this.clearTimers();
   }
@@ -83,7 +88,7 @@ class SessionTimer {
    */
   reset() {
     if (!this.isActive) return;
-    
+
     this.lastActivity = Date.now();
     this.isWarningShown = false;
     this.clearTimers();
@@ -115,10 +120,13 @@ class SessionTimer {
   checkSession() {
     const now = Date.now();
     const elapsed = now - this.lastActivity;
-    
+
     if (elapsed >= this.timeoutDuration) {
       this.handleTimeout();
-    } else if (elapsed >= (this.timeoutDuration - this.warningDuration) && !this.isWarningShown) {
+    } else if (
+      elapsed >= this.timeoutDuration - this.warningDuration &&
+      !this.isWarningShown
+    ) {
       this.handleWarning();
     }
   }
@@ -128,12 +136,13 @@ class SessionTimer {
    */
   handleActivity() {
     if (!this.isActive) return;
-    
+
     const now = Date.now();
     const timeSinceLastActivity = now - this.lastActivity;
-    
+
     // Throttle activity detection to avoid excessive resets
-    if (timeSinceLastActivity > 1000) { // 1 second throttle
+    if (timeSinceLastActivity > 1000) {
+      // 1 second throttle
       this.reset();
       this.onActivity(now);
     }
@@ -161,10 +170,10 @@ class SessionTimer {
    */
   scheduleNext() {
     this.clearTimers();
-    
+
     const timeUntilWarning = this.getTimeUntilWarning();
     const remainingTime = this.getRemainingTime();
-    
+
     if (timeUntilWarning > 0) {
       // Schedule warning
       this.warningId = setTimeout(() => this.checkSession(), timeUntilWarning);
@@ -186,7 +195,7 @@ class SessionTimer {
       if (this.isActive) {
         const remaining = this.getRemainingTime();
         this.onTick(remaining);
-        
+
         if (remaining === 0) {
           this.stopTicking();
         }
@@ -230,10 +239,10 @@ class SessionTimer {
  */
 function formatTime(ms) {
   if (ms <= 0) return '0:00';
-  
+
   const minutes = Math.floor(ms / 60000);
   const seconds = Math.floor((ms % 60000) / 1000);
-  
+
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
@@ -244,11 +253,11 @@ function formatTime(ms) {
  */
 function parseTime(ms) {
   if (ms <= 0) return { hours: 0, minutes: 0, seconds: 0 };
-  
+
   const hours = Math.floor(ms / 3600000);
   const minutes = Math.floor((ms % 3600000) / 60000);
   const seconds = Math.floor((ms % 60000) / 1000);
-  
+
   return { hours, minutes, seconds };
 }
 
@@ -260,7 +269,7 @@ const sessionStorage = {
     try {
       const item = {
         value,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       window.sessionStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
@@ -272,14 +281,14 @@ const sessionStorage = {
     try {
       const item = window.sessionStorage.getItem(key);
       if (!item) return null;
-      
+
       const parsed = JSON.parse(item);
-      
+
       if (maxAge && Date.now() - parsed.timestamp > maxAge) {
         this.removeItem(key);
         return null;
       }
-      
+
       return parsed.value;
     } catch (error) {
       console.warn('Error reading from session storage:', error);
@@ -301,7 +310,7 @@ const sessionStorage = {
     } catch (error) {
       console.warn('Error clearing session storage:', error);
     }
-  }
+  },
 };
 
 /**
@@ -317,29 +326,30 @@ class ActivityTracker {
     this.activities.push({
       type,
       timestamp: Date.now(),
-      details
+      details,
     });
   }
 
   getActivitySummary() {
     const now = Date.now();
     const sessionDuration = now - this.sessionStart;
-    
+
     const activityCounts = this.activities.reduce((counts, activity) => {
       counts[activity.type] = (counts[activity.type] || 0) + 1;
       return counts;
     }, {});
 
-    const lastActivity = this.activities.length > 0 
-      ? this.activities[this.activities.length - 1].timestamp 
-      : this.sessionStart;
+    const lastActivity =
+      this.activities.length > 0
+        ? this.activities[this.activities.length - 1].timestamp
+        : this.sessionStart;
 
     return {
       sessionDuration,
       totalActivities: this.activities.length,
       activityCounts,
       lastActivity,
-      idleTime: now - lastActivity
+      idleTime: now - lastActivity,
     };
   }
 
@@ -353,25 +363,28 @@ class ActivityTracker {
 ## Usage Examples
 
 ### Basic Session Timer
+
 ```javascript
 // Create a session timer with default settings
 const sessionTimer = new SessionTimer({
   timeoutDuration: 15 * 60 * 1000, // 15 minutes
-  warningDuration: 2 * 60 * 1000,  // 2 minutes warning
-  
+  warningDuration: 2 * 60 * 1000, // 2 minutes warning
+
   onWarning: (remainingTime) => {
     const timeLeft = formatTime(remainingTime);
-    showWarningModal(`Your session will expire in ${timeLeft}. Click to continue.`);
+    showWarningModal(
+      `Your session will expire in ${timeLeft}. Click to continue.`
+    );
   },
-  
+
   onTimeout: () => {
     logout();
     redirectToLogin();
   },
-  
+
   onActivity: (timestamp) => {
     console.log('User activity detected at:', new Date(timestamp));
-  }
+  },
 });
 
 // Start monitoring
@@ -379,6 +392,7 @@ sessionTimer.start();
 ```
 
 ### Advanced Session Management
+
 ```javascript
 class SessionManager {
   constructor() {
@@ -386,19 +400,20 @@ class SessionManager {
     this.warningModal = null;
     this.activityTracker = new ActivityTracker();
     this.heartbeatInterval = null;
-    
+
     this.initializeTimer();
   }
 
   initializeTimer() {
     this.timer = new SessionTimer({
       timeoutDuration: 30 * 60 * 1000, // 30 minutes
-      warningDuration: 5 * 60 * 1000,  // 5 minutes warning
-      
+      warningDuration: 5 * 60 * 1000, // 5 minutes warning
+
       onWarning: (remainingTime) => this.showWarning(remainingTime),
       onTimeout: () => this.handleTimeout(),
-      onActivity: (timestamp) => this.logActivity('user_interaction', { timestamp }),
-      onTick: (remainingTime) => this.updateCountdown(remainingTime)
+      onActivity: (timestamp) =>
+        this.logActivity('user_interaction', { timestamp }),
+      onTick: (remainingTime) => this.updateCountdown(remainingTime),
     });
   }
 
@@ -416,13 +431,13 @@ class SessionManager {
 
   showWarning(remainingTime) {
     const timeLeft = formatTime(remainingTime);
-    
+
     this.warningModal = {
       message: `Your session will expire in ${timeLeft}`,
       onExtend: () => this.extendSession(),
-      onLogout: () => this.logout()
+      onLogout: () => this.logout(),
     };
-    
+
     // Show modal in your UI framework
     showSessionWarningModal(this.warningModal);
   }
@@ -431,7 +446,7 @@ class SessionManager {
     this.timer.reset();
     this.closeWarningModal();
     this.activityTracker.logActivity('session_extended');
-    
+
     // Optional: Make API call to extend server session
     this.extendServerSession();
   }
@@ -443,10 +458,10 @@ class SessionManager {
 
   logout() {
     this.stop();
-    
+
     // Clear session data
     sessionStorage.clear();
-    
+
     // Redirect to login
     window.location.href = '/login';
   }
@@ -482,7 +497,7 @@ class SessionManager {
       await fetch('/api/session/heartbeat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ summary })
+        body: JSON.stringify({ summary }),
       });
     } catch (error) {
       console.warn('Heartbeat failed:', error);
@@ -504,6 +519,7 @@ sessionManager.start();
 ```
 
 ### React Integration
+
 ```javascript
 import { useState, useEffect, useCallback } from 'react';
 
@@ -535,7 +551,7 @@ function useSessionTimer(options = {}) {
       onWarning,
       onTick,
       onTimeout,
-      onActivity
+      onActivity,
     });
 
     sessionTimer.start();
@@ -555,29 +571,28 @@ function useSessionTimer(options = {}) {
     remainingTime,
     showWarning,
     extendSession,
-    formattedTime: remainingTime ? formatTime(remainingTime) : null
+    formattedTime: remainingTime ? formatTime(remainingTime) : null,
   };
 }
 
 // Usage in React component
 function App() {
-  const { remainingTime, showWarning, extendSession, formattedTime } = useSessionTimer({
-    timeoutDuration: 30 * 60 * 1000,
-    warningDuration: 5 * 60 * 1000,
-    onTimeout: () => {
-      // Handle logout
-      window.location.href = '/login';
-    }
-  });
+  const { remainingTime, showWarning, extendSession, formattedTime } =
+    useSessionTimer({
+      timeoutDuration: 30 * 60 * 1000,
+      warningDuration: 5 * 60 * 1000,
+      onTimeout: () => {
+        // Handle logout
+        window.location.href = '/login';
+      },
+    });
 
   return (
     <div>
       <header>
         <div>My App</div>
         {formattedTime && (
-          <div className="session-timer">
-            Session: {formattedTime}
-          </div>
+          <div className="session-timer">Session: {formattedTime}</div>
         )}
       </header>
 
@@ -585,7 +600,7 @@ function App() {
         <SessionWarningModal
           remainingTime={formattedTime}
           onExtend={extendSession}
-          onLogout={() => window.location.href = '/login'}
+          onLogout={() => (window.location.href = '/login')}
         />
       )}
 
@@ -596,6 +611,7 @@ function App() {
 ```
 
 ### Multiple Timer Management
+
 ```javascript
 class MultiTimerManager {
   constructor() {
@@ -640,12 +656,12 @@ class MultiTimerManager {
     return {
       isActive: timer.isActive,
       remainingTime: timer.getRemainingTime(),
-      formattedTime: formatTime(timer.getRemainingTime())
+      formattedTime: formatTime(timer.getRemainingTime()),
     };
   }
 
   stopAllTimers() {
-    this.timers.forEach(timer => timer.stop());
+    this.timers.forEach((timer) => timer.stop());
   }
 
   removeTimer(name) {
@@ -663,19 +679,19 @@ const timerManager = new MultiTimerManager();
 // Main session timer
 timerManager.createTimer('main', {
   timeoutDuration: 30 * 60 * 1000,
-  onTimeout: () => logout()
+  onTimeout: () => logout(),
 });
 
 // Form auto-save timer
 timerManager.createTimer('autosave', {
   timeoutDuration: 60 * 1000, // 1 minute
-  onTimeout: () => autoSaveForm()
+  onTimeout: () => autoSaveForm(),
 });
 
 // Notification reminder timer
 timerManager.createTimer('reminder', {
   timeoutDuration: 10 * 60 * 1000, // 10 minutes
-  onTimeout: () => showReminder()
+  onTimeout: () => showReminder(),
 });
 
 // Start all timers

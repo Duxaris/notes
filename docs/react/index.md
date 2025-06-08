@@ -7,6 +7,7 @@ Welcome to the React section! This area is currently being prepared and will soo
 This section will include:
 
 ### React Fundamentals
+
 - Components and JSX
 - Props and State
 - Event Handling
@@ -14,18 +15,21 @@ This section will include:
 - Lists and Keys
 
 ### React Hooks
+
 - useState and useEffect
 - Custom Hooks
 - useContext and useReducer
 - Performance Hooks (useMemo, useCallback)
 
 ### Advanced Concepts
+
 - Context API
 - Error Boundaries
 - Code Splitting
 - Testing React Components
 
 ### React Ecosystem
+
 - React Router
 - State Management (Redux, Zustand)
 - Styling Solutions
@@ -34,6 +38,7 @@ This section will include:
 ## 📝 Note Structure
 
 Each topic will include:
+
 - Clear explanations with code examples
 - Real-world use cases
 - Common patterns and best practices
@@ -46,4 +51,4 @@ The React notes will be organized in a progressive learning path, building from 
 
 ---
 
-*This section is being actively developed. Check back soon for comprehensive React learning materials!*
+_This section is being actively developed. Check back soon for comprehensive React learning materials!_

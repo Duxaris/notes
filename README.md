@@ -22,16 +22,19 @@ A comprehensive documentation site built with MkDocs Material for JavaScript and
 ### Running the Development Server
 
 **Option 1: Using the convenience script**
+
 ```bash
 ./serve.sh
 ```
 
 **Option 2: Using VS Code tasks**
+
 - Open Command Palette (`Ctrl+Shift+P`)
 - Run: `Tasks: Run Task`
 - Select: `MkDocs: Serve Development Site`
 
 **Option 3: Manual activation**
+
 ```bash
 source mkdocs-env/bin/activate
 mkdocs serve --dev-addr 127.0.0.1:8001
@@ -66,11 +69,13 @@ notes/
 ## Content Sections
 
 ### JavaScript
+
 - **Basics**: Variables, operators, data types
 - **Intermediate**: Destructuring, spread/rest operators, logical operators
 - **Snippets**: Practical code examples and utilities
 
 ### React
+
 - Coming soon - ready for expansion
 
 ## Development
@@ -90,6 +95,7 @@ notes/
 ## Dependencies
 
 All dependencies are managed in `requirements.txt`:
+
 - mkdocs>=1.5.0
 - mkdocs-material>=9.4.0
 - mkdocs-awesome-pages-plugin>=2.9.0
@@ -104,4 +110,4 @@ All dependencies are managed in `requirements.txt`:
 
 ---
 
-*Built with ❤️ using MkDocs Material*
+_Built with ❤️ using MkDocs Material_

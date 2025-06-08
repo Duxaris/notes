@@ -12,11 +12,11 @@ A flexible utility function for merging objects with preset configurations. Part
  */
 function mergePresets(...objects) {
   // Helper function to check if value is a plain object
-  const isObject = (obj) => 
-    obj !== null && 
-    typeof obj === 'object' && 
-    !Array.isArray(obj) && 
-    !(obj instanceof Date) && 
+  const isObject = (obj) =>
+    obj !== null &&
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    !(obj instanceof Date) &&
     !(obj instanceof RegExp);
 
   // Recursive merge function
@@ -51,6 +51,7 @@ function mergePresets(...objects) {
 ## Usage Examples
 
 ### Basic Configuration Merging
+
 ```javascript
 const defaultConfig = {
   theme: 'light',
@@ -58,19 +59,19 @@ const defaultConfig = {
   features: {
     notifications: true,
     analytics: false,
-    autoSave: true
+    autoSave: true,
   },
   ui: {
     sidebar: true,
-    toolbar: 'top'
-  }
+    toolbar: 'top',
+  },
 };
 
 const userPreferences = {
   theme: 'dark',
   features: {
-    analytics: true
-  }
+    analytics: true,
+  },
 };
 
 const finalConfig = mergePresets(defaultConfig, userPreferences);
@@ -92,34 +93,35 @@ console.log(finalConfig);
 ```
 
 ### Multiple Preset Layers
+
 ```javascript
 const systemDefaults = {
   performance: {
     cacheSize: 100,
-    timeout: 5000
+    timeout: 5000,
   },
   security: {
     encryption: true,
-    tokenExpiry: 3600
-  }
+    tokenExpiry: 3600,
+  },
 };
 
 const appPresets = {
   performance: {
-    cacheSize: 200
+    cacheSize: 200,
   },
   features: {
-    experimental: false
-  }
+    experimental: false,
+  },
 };
 
 const userSettings = {
   performance: {
-    timeout: 10000
+    timeout: 10000,
   },
   features: {
-    experimental: true
-  }
+    experimental: true,
+  },
 };
 
 const finalSettings = mergePresets(systemDefaults, appPresets, userSettings);
@@ -141,34 +143,35 @@ console.log(finalSettings);
 ```
 
 ### API Configuration Builder
+
 ```javascript
 const baseApiConfig = {
   baseURL: 'https://api.example.com',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    Accept: 'application/json',
   },
   retry: {
     attempts: 3,
-    delay: 1000
-  }
+    delay: 1000,
+  },
 };
 
 const authConfig = {
   headers: {
-    'Authorization': 'Bearer token123'
-  }
+    Authorization: 'Bearer token123',
+  },
 };
 
 const customConfig = {
   timeout: 10000,
   headers: {
-    'X-Custom-Header': 'custom-value'
+    'X-Custom-Header': 'custom-value',
   },
   retry: {
-    attempts: 5
-  }
+    attempts: 5,
+  },
 };
 
 const apiConfig = mergePresets(baseApiConfig, authConfig, customConfig);
@@ -183,6 +186,7 @@ console.log(apiConfig.headers);
 ```
 
 ### Theme Configuration
+
 ```javascript
 function createTheme(baseTheme, ...customizations) {
   const defaultTheme = {
@@ -191,21 +195,21 @@ function createTheme(baseTheme, ...customizations) {
       secondary: '#6c757d',
       success: '#28a745',
       warning: '#ffc107',
-      error: '#dc3545'
+      error: '#dc3545',
     },
     typography: {
       fontFamily: 'Arial, sans-serif',
       fontSize: {
         small: '12px',
         medium: '16px',
-        large: '20px'
-      }
+        large: '20px',
+      },
     },
     spacing: {
       small: '8px',
       medium: '16px',
-      large: '24px'
-    }
+      large: '24px',
+    },
   };
 
   return mergePresets(defaultTheme, baseTheme, ...customizations);
@@ -216,17 +220,17 @@ const darkTheme = {
   colors: {
     primary: '#0d6efd',
     background: '#1a1a1a',
-    text: '#ffffff'
-  }
+    text: '#ffffff',
+  },
 };
 
 const companyBranding = {
   colors: {
-    primary: '#ff6b35'
+    primary: '#ff6b35',
   },
   typography: {
-    fontFamily: 'Roboto, sans-serif'
-  }
+    fontFamily: 'Roboto, sans-serif',
+  },
 };
 
 const finalTheme = createTheme(darkTheme, companyBranding);
@@ -235,13 +239,14 @@ const finalTheme = createTheme(darkTheme, companyBranding);
 ## Advanced Variations
 
 ### With Array Merging
+
 ```javascript
 function mergePresetsWithArrays(...objects) {
-  const isObject = (obj) => 
-    obj !== null && 
-    typeof obj === 'object' && 
-    !Array.isArray(obj) && 
-    !(obj instanceof Date) && 
+  const isObject = (obj) =>
+    obj !== null &&
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    !(obj instanceof Date) &&
     !(obj instanceof RegExp);
 
   const deepMerge = (target, source) => {
@@ -275,12 +280,12 @@ function mergePresetsWithArrays(...objects) {
 // Example with arrays
 const config1 = {
   plugins: ['plugin1', 'plugin2'],
-  features: { a: true }
+  features: { a: true },
 };
 
 const config2 = {
   plugins: ['plugin2', 'plugin3'],
-  features: { b: true }
+  features: { b: true },
 };
 
 const merged = mergePresetsWithArrays(config1, config2);
@@ -291,13 +296,14 @@ const merged = mergePresetsWithArrays(config1, config2);
 ```
 
 ### With Custom Merge Strategies
+
 ```javascript
 function mergePresetsCustom(mergeStrategies = {}, ...objects) {
-  const isObject = (obj) => 
-    obj !== null && 
-    typeof obj === 'object' && 
-    !Array.isArray(obj) && 
-    !(obj instanceof Date) && 
+  const isObject = (obj) =>
+    obj !== null &&
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    !(obj instanceof Date) &&
     !(obj instanceof RegExp);
 
   const deepMerge = (target, source, path = '') => {
@@ -333,7 +339,7 @@ function mergePresetsCustom(mergeStrategies = {}, ...objects) {
 // Example with custom strategies
 const strategies = {
   'performance.timeout': (target, source) => Math.max(target || 0, source),
-  'features.plugins': (target, source) => [...(target || []), ...source]
+  'features.plugins': (target, source) => [...(target || []), ...source],
 };
 
 const result = mergePresetsCustom(strategies, config1, config2);
@@ -353,7 +359,7 @@ function safemergePresets(...objects) {
 
 // Or with validation
 function validateAndMerge(...objects) {
-  const validObjects = objects.filter(obj => {
+  const validObjects = objects.filter((obj) => {
     if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
       console.warn('Invalid object passed to mergePresets:', obj);
       return false;
