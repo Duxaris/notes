@@ -207,7 +207,8 @@ const { sat, ...weekdays } = restaurant.openingHours;
 console.log(weekdays); // All days except Saturday
 
 // Rest parameters in functions (variable number of arguments)
-const add = function (...numbers) { // Collect all arguments into an array
+const add = function (...numbers) {
+  // Collect all arguments into an array
   let sum = 0;
   for (let i = 0; i < numbers.length; i++) {
     sum += numbers[i];
@@ -255,7 +256,8 @@ console.log(7 && 'Jonas'); // 'Jonas' (all truthy, returns last)
 console.log('Hello' && 23 && null && 'jonas'); // null (first falsy value)
 
 // Practical use: conditional execution (cleaner than if statements)
-if (restaurant.orderPizza) { // Traditional way
+if (restaurant.orderPizza) {
+  // Traditional way
   restaurant.orderPizza('mushrooms', 'spinach');
 }
 

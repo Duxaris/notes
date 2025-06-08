@@ -78,7 +78,8 @@ document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value); // Convert string to number
   console.log(guess, typeof guess);
 
-  if (!guess) { // Falsy values: 0, '', null, undefined, NaN
+  if (!guess) {
+    // Falsy values: 0, '', null, undefined, NaN
     document.querySelector('.message').textContent = 'No number!';
   }
 });
@@ -89,7 +90,8 @@ function handleCheck() {
 
   if (!guess) {
     document.querySelector('.message').textContent = 'No number!';
-  } else if (guess === secretNumber) { // Use === for strict equality
+  } else if (guess === secretNumber) {
+    // Use === for strict equality
     document.querySelector('.message').textContent = 'Correct Number!';
   } else if (guess > secretNumber) {
     document.querySelector('.message').textContent = 'Too high!';
@@ -104,7 +106,8 @@ document.querySelector('.check').addEventListener('click', handleCheck); // Pass
 document.addEventListener('keydown', function (event) {
   console.log(event.key); // Which key was pressed ('Enter', 'Escape', 'a', etc.)
 
-  if (event.key === 'Escape') { // Check specific key
+  if (event.key === 'Escape') {
+    // Check specific key
     // Handle escape key - common pattern for closing modals
     closeModal();
   }
