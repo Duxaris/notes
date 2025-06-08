@@ -62,19 +62,15 @@ nav:
   - Home: index.md
   - JavaScript:
       - Overview: javascript/index.md
-      - JS Basics:
-          - Variables: javascript/js-basics/variables.md
-          - Operators: javascript/js-basics/operators.md
-          - Data Types: javascript/js-basics/data-types.md
-      - Intermediate:
-          - Destructuring: javascript/intermediate/destructuring.md
-          - Spread vs Rest: javascript/intermediate/spread-vs-rest.md
-          - Logical Operators: javascript/intermediate/logical-operators.md
-      - Code Snippets:
-          - Overview: javascript/snippets/index.md
-          - Merge Presets: javascript/snippets/mergePresets.md
-          - Get User Initials: javascript/snippets/getUserInitials.md
-          - Session Timer Utils: javascript/snippets/sessionTimerUtils.md
+      - Foundation:
+          - "Section 1: Welcome": javascript/01-welcome.md
+          - "Section 2: Fundamentals Part 1": javascript/02-fundamentals-part-1.md
+          - "Section 3: Fundamentals Part 2": javascript/03-fundamentals-part-2.md
+          - "Section 4: How to Navigate": javascript/04-how-to-navigate.md
+      - Browser & Advanced:
+          - "Section 7: DOM & Events": javascript/07-dom-and-events.md
+          - "Section 8: Behind the Scenes": javascript/08-behind-the-scenes.md
+          - "Section 9: Data Structures & Operators": javascript/09-data-structures-operators.md
   - React:
       - Overview: react/index.md
 
