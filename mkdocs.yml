@@ -1,0 +1,88 @@
+site_name: JavaScript & React Course Notes
+site_description: Comprehensive notes for learning JavaScript and React
+site_author: Your Name
+site_url: https://yourname.github.io/notes
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - def_list
+
+nav:
+  - Home: index.md
+  - JavaScript:
+      - Overview: javascript/index.md
+      - JS Basics:
+          - Variables: javascript/js-basics/variables.md
+          - Operators: javascript/js-basics/operators.md
+          - Data Types: javascript/js-basics/data-types.md
+      - Intermediate:
+          - Destructuring: javascript/intermediate/destructuring.md
+          - Spread vs Rest: javascript/intermediate/spread-vs-rest.md
+          - Logical Operators: javascript/intermediate/logical-operators.md
+      - Code Snippets:
+          - Overview: javascript/snippets/index.md
+          - Merge Presets: javascript/snippets/mergePresets.md
+          - Get User Initials: javascript/snippets/getUserInitials.md
+          - Session Timer Utils: javascript/snippets/sessionTimerUtils.md
+  - React:
+      - Overview: react/index.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/yourusername
+
+copyright: Copyright &copy; 2025 Your Name
