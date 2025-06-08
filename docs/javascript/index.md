@@ -1,39 +1,35 @@
-# JavaScript Notes
+# JavaScript Course Notes
 
-This section contains comprehensive notes on JavaScript fundamentals and advanced concepts. The content is organized from basic concepts to more complex topics.
+Welcome to the JavaScript course notes following "The Complete JavaScript Course 2024" structure. These notes are organized by course sections to help you learn JavaScript systematically.
 
-## 📋 Learning Path
+## 📚 Course Sections
 
-### 1. JS Basics
+### Foundation
 
-Start with the fundamental building blocks of JavaScript:
+- [Section 1: Welcome](01-welcome.md) - Course overview and setup
+- [Section 2: JavaScript Fundamentals Part 1](02-fundamentals-part-1.md) - Variables, data types, operators
+- [Section 3: JavaScript Fundamentals Part 2](03-fundamentals-part-2.md) - Functions, arrays, objects
+- [Section 4: How to Navigate This Course](04-how-to-navigate.md) - Learning strategies and tips
 
-- [Variables](js-basics/variables.md) - Declaration, scope, and best practices
-- [Operators](js-basics/operators.md) - Arithmetic, comparison, logical, and assignment operators
-- [Data Types](js-basics/data-types.md) - Primitives, objects, and type conversion
+### Browser & Advanced Concepts
 
-### 2. Intermediate Concepts
+- [Section 7: JavaScript in the Browser](07-dom-and-events.md) - DOM manipulation and events
+- [Section 8: How JavaScript Works Behind the Scenes](08-behind-the-scenes.md) - Execution context, hoisting, scope
+- [Section 9: Data Structures & Modern Operators](09-data-structures-operators.md) - Destructuring, spread, rest, sets, maps
 
-Build on the basics with more advanced features:
+## 🎯 Learning Approach
 
-- [Destructuring](intermediate/destructuring.md) - Object and array destructuring patterns
-- [Spread vs Rest](intermediate/spread-vs-rest.md) - Understanding the ... operator
-- [Logical Operators](intermediate/logical-operators.md) - Advanced logical operations and short-circuiting
+1. **Read the concepts** - Understand the theory first
+2. **Study the code patterns** - See practical examples
+3. **Practice actively** - Write code and experiment
+4. **Build projects** - Apply what you've learned
 
-### 3. Code Snippets
+## 🔗 Quick Reference
 
-Practical, reusable code examples:
-
-- [Utility Functions](snippets/index.md) - Collection of useful JavaScript utilities
-
-## 🎯 Quick Reference
-
-- **Variables**: `let`, `const`, `var` differences
-- **Functions**: Arrow functions, regular functions, methods
-- **Objects**: Creation, manipulation, destructuring
-- **Arrays**: Methods, iteration, transformation
-- **ES6+**: Modern JavaScript features and syntax
+- **MDN Documentation**: [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- **ES6+ Features**: Modern JavaScript syntax and features
+- **Best Practices**: Clean, readable, and maintainable code
 
 ---
 
-_Keep practicing and building projects to reinforce these concepts!_
+_Happy coding! 🚀_
