@@ -63,14 +63,14 @@ nav:
   - JavaScript:
       - Overview: javascript/index.md
       - Foundation:
-          - "Section 1: Welcome": javascript/01-welcome.md
-          - "Section 2: Fundamentals Part 1": javascript/02-fundamentals-part-1.md
-          - "Section 3: Fundamentals Part 2": javascript/03-fundamentals-part-2.md
-          - "Section 4: How to Navigate": javascript/04-how-to-navigate.md
+          - 'Section 1: Welcome': javascript/01-welcome.md
+          - 'Section 2: Fundamentals Part 1': javascript/02-fundamentals-part-1.md
+          - 'Section 3: Fundamentals Part 2': javascript/03-fundamentals-part-2.md
+          - 'Section 4: How to Navigate': javascript/04-how-to-navigate.md
       - Browser & Advanced:
-          - "Section 7: DOM & Events": javascript/07-dom-and-events.md
-          - "Section 8: Behind the Scenes": javascript/08-behind-the-scenes.md
-          - "Section 9: Data Structures & Operators": javascript/09-data-structures-operators.md
+          - 'Section 7: DOM & Events': javascript/07-dom-and-events.md
+          - 'Section 8: Behind the Scenes': javascript/08-behind-the-scenes.md
+          - 'Section 9: Data Structures & Operators': javascript/09-data-structures-operators.md
   - React:
       - Overview: react/index.md
 
