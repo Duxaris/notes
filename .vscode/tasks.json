@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "MkDocs: Serve Development Site",
+      "type": "shell",
+      "command": "source mkdocs-env/bin/activate && mkdocs serve --dev-addr 127.0.0.1:8001",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "MkDocs: Build Site",
+      "type": "shell",
+      "command": "source mkdocs-env/bin/activate && mkdocs build",
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": []
+    }
+  ]
+}
