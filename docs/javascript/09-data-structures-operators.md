@@ -3,6 +3,7 @@
 ## Key Concepts
 
 - **Destructuring Assignment**
+
   - Extract values from arrays and objects into variables
   - **Array destructuring**: `const [a, b] = array`
   - **Object destructuring**: `const {name, age} = object`
@@ -10,6 +11,7 @@
   - Swapping variables, function parameters
 
 - **Spread Operator (...)**
+
   - Expands arrays/objects into individual elements
   - **Array spreading**: `[...array1, ...array2]`
   - **Object spreading**: `{...obj1, ...obj2}`
@@ -17,12 +19,14 @@
   - Since ES2018: works with objects too
 
 - **Rest Pattern (...)**
+
   - Collects multiple elements into an array/object
   - **Rest in destructuring**: `const [a, ...others] = array`
   - **Rest parameters**: `function(...args)`
   - Always last element, opposite of spread
 
 - **Short-Circuiting (&& and ||)**
+
   - **OR (||)**: Returns first truthy value or last value
   - **AND (&&)**: Returns first falsy value or last value
   - **Nullish Coalescing (??)**: Only null/undefined are falsy
@@ -64,14 +68,14 @@ console.log(i, j, k); // 2, 5, 6
 
 // Restaurant example
 const restaurant = {
-    name: 'Classico Italiano',
-    categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-    starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread'],
-    mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-    
-    order: function(starterIndex, mainIndex) {
-        return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-    }
+  name: 'Classico Italiano',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
 
 // Destructuring function return
@@ -103,26 +107,35 @@ console.log(a, b); // 23, 7
 
 // Nested objects
 const restaurant2 = {
-    openingHours: {
-        thu: { open: 12, close: 22 },
-        fri: { open: 11, close: 23 },
-        sat: { open: 0, close: 24 }
-    }
+  openingHours: {
+    thu: { open: 12, close: 22 },
+    fri: { open: 11, close: 23 },
+    sat: { open: 0, close: 24 },
+  },
 };
 
-const { fri: { open: o, close: c } } = restaurant2.openingHours;
+const {
+  fri: { open: o, close: c },
+} = restaurant2.openingHours;
 console.log(o, c); // 11, 23
 
 // Function parameters
-const orderDelivery = function({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
-    console.log(`Order received! ${starterIndex}, ${mainIndex}, ${time}, ${address}`);
+const orderDelivery = function ({
+  starterIndex = 1,
+  mainIndex = 0,
+  time = '20:00',
+  address,
+}) {
+  console.log(
+    `Order received! ${starterIndex}, ${mainIndex}, ${time}, ${address}`
+  );
 };
 
 restaurant.orderDelivery({
-    time: '22:30',
-    address: 'Via del Sole, 21',
-    mainIndex: 2,
-    starterIndex: 2
+  time: '22:30',
+  address: 'Via del Sole, 21',
+  mainIndex: 2,
+  starterIndex: 2,
 });
 ```
 
@@ -149,18 +162,18 @@ console.log(letters); // ['J', 'o', 'n', 'a', 's', ' ', 'S.']
 
 // Real-world example: function arguments
 const ingredients = [
-    prompt("Let's make pasta! Ingredient 1?"),
-    prompt('Ingredient 2?'),
-    prompt('Ingredient 3')
+  prompt("Let's make pasta! Ingredient 1?"),
+  prompt('Ingredient 2?'),
+  prompt('Ingredient 3'),
 ];
 
 restaurant.orderPasta(...ingredients);
 
 // Objects (ES2018)
 const newRestaurant = {
-    foundedIn: 1998,
-    ...restaurant,
-    founder: 'Giuseppe'
+  foundedIn: 1998,
+  ...restaurant,
+  founder: 'Giuseppe',
 };
 
 // Shallow copy of objects
@@ -179,8 +192,8 @@ console.log(a, b, others); // 1, 2, [3, 4, 5]
 
 // Rest with skipping
 const [pizza, , risotto, ...otherFood] = [
-    ...restaurant.mainMenu,
-    ...restaurant.starterMenu
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
 ];
 console.log(pizza, risotto, otherFood);
 
@@ -189,12 +202,12 @@ const { sat, ...weekdays } = restaurant.openingHours;
 console.log(weekdays);
 
 // Rest parameters in functions
-const add = function(...numbers) {
-    let sum = 0;
-    for (let i = 0; i < numbers.length; i++) {
-        sum += numbers[i];
-    }
-    return sum;
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
 };
 
 console.log(add(2, 3)); // 5
@@ -206,9 +219,9 @@ const x = [23, 5, 7];
 console.log(add(...x)); // 35
 
 // Restaurant order function with rest
-restaurant.orderPizza = function(mainIngredient, ...otherIngredients) {
-    console.log(mainIngredient);
-    console.log(otherIngredients);
+restaurant.orderPizza = function (mainIngredient, ...otherIngredients) {
+  console.log(mainIngredient);
+  console.log(otherIngredients);
 };
 
 restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
@@ -238,7 +251,7 @@ console.log('Hello' && 23 && null && 'jonas'); // null
 
 // Practical use: conditional execution
 if (restaurant.orderPizza) {
-    restaurant.orderPizza('mushrooms', 'spinach');
+  restaurant.orderPizza('mushrooms', 'spinach');
 }
 
 restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
@@ -259,13 +272,13 @@ console.log('' ?? 'default'); // ''
 
 ```js
 const rest1 = {
-    name: 'Capri',
-    numGuests: 0
+  name: 'Capri',
+  numGuests: 0,
 };
 
 const rest2 = {
-    name: 'La Piazza',
-    owner: 'Giovanni Rossi'
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
 };
 
 // OR assignment operator (||=)
@@ -299,7 +312,7 @@ for (const item of menu) console.log(item);
 
 // Getting index
 for (const [i, el] of menu.entries()) {
-    console.log(`${i + 1}: ${el}`);
+  console.log(`${i + 1}: ${el}`);
 }
 
 // entries() returns array of [index, element]
@@ -312,30 +325,32 @@ console.log([...menu.entries()]);
 const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 const openingHours = {
-    [weekdays[3]]: { // Computed property names
-        open: 12,
-        close: 22,
-    },
-    [weekdays[4]]: {
-        open: 11,
-        close: 23,
-    },
-    [weekdays[5]]: {
-        open: 0, // Open 24 hours
-        close: 24,
-    },
+  [weekdays[3]]: {
+    // Computed property names
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [weekdays[5]]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
 };
 
 const restaurant3 = {
-    name: 'Classico Italiano',
-    
-    // ES6 enhanced object literals
-    openingHours, // Same as openingHours: openingHours
-    
-    // Method shorthand
-    order(starterIndex, mainIndex) { // Instead of order: function()
-        return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-    }
+  name: 'Classico Italiano',
+
+  // ES6 enhanced object literals
+  openingHours, // Same as openingHours: openingHours
+
+  // Method shorthand
+  order(starterIndex, mainIndex) {
+    // Instead of order: function()
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
 ```
 
@@ -344,7 +359,7 @@ const restaurant3 = {
 ```js
 // Without optional chaining
 if (restaurant.openingHours && restaurant.openingHours.mon) {
-    console.log(restaurant.openingHours.mon.open);
+  console.log(restaurant.openingHours.mon.open);
 }
 
 // With optional chaining
@@ -355,8 +370,8 @@ console.log(restaurant.openingHours?.mon?.open);
 const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 for (const day of days) {
-    const open = restaurant.openingHours[day]?.open ?? 'closed';
-    console.log(`On ${day}, we open at ${open}`);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
 }
 
 // Methods
@@ -364,9 +379,7 @@ console.log(restaurant.order?.(0, 1) ?? 'Method does not exist');
 console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist');
 
 // Arrays
-const users = [
-    { name: 'Jonas', email: 'hello@jonas.io' }
-];
+const users = [{ name: 'Jonas', email: 'hello@jonas.io' }];
 
 console.log(users[0]?.name ?? 'User array empty');
 console.log(users[2]?.name ?? 'User does not exist');
@@ -377,12 +390,12 @@ console.log(users[2]?.name ?? 'User does not exist');
 ```js
 // Creating sets
 const ordersSet = new Set([
-    'Pasta',
-    'Pizza',
-    'Pizza',
-    'Risotto',
-    'Pasta',
-    'Pizza'
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
 ]);
 
 console.log(ordersSet); // Set(3) {"Pasta", "Pizza", "Risotto"}
@@ -421,11 +434,11 @@ rest.set(2, 'Lisbon, Portugal');
 
 // Chaining set methods
 rest
-    .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
-    .set('open', 11)
-    .set('close', 23)
-    .set(true, 'We are open :D')
-    .set(false, 'We are closed :(');
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
 
 // Getting values
 console.log(rest.get('name')); // 'Classico Italiano'
@@ -491,14 +504,14 @@ console.log(airline.slice(-2)); // 'al'
 console.log(airline.slice(1, -1)); // 'AP Air Portuga'
 
 // Practical functions
-const checkMiddleSeat = function(seat) {
-    // B and E are middle seats
-    const s = seat.slice(-1);
-    if (s === 'B' || s === 'E') {
-        console.log('You got the middle seat 😬');
-    } else {
-        console.log('You got lucky 😎');
-    }
+const checkMiddleSeat = function (seat) {
+  // B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') {
+    console.log('You got the middle seat 😬');
+  } else {
+    console.log('You got lucky 😎');
+  }
 };
 
 checkMiddleSeat('11B'); // middle seat
@@ -512,7 +525,8 @@ console.log(airline.toUpperCase()); // 'TAP AIR PORTUGAL'
 // Fix capitalization
 const passenger = 'jOnAS'; // Should be 'Jonas'
 const passengerLower = passenger.toLowerCase();
-const passengerCorrect = passengerLower[0].toUpperCase() + passengerLower.slice(1);
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
 console.log(passengerCorrect); // 'Jonas'
 
 // Comparing emails
@@ -531,7 +545,8 @@ const priceGB = '288,97£';
 const priceUS = priceGB.replace('£', '$').replace(',', '.');
 console.log(priceUS); // '288.97$'
 
-const announcement = 'All passengers come to boarding door 23. Boarding door 23!';
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23!';
 console.log(announcement.replace('door', 'gate')); // Only first occurrence
 console.log(announcement.replaceAll('door', 'gate')); // All occurrences
 
@@ -547,7 +562,7 @@ console.log(plane2.endsWith('neo')); // true
 
 // Practical example
 if (plane2.startsWith('Airbus') && plane2.endsWith('neo')) {
-    console.log('Part of the NEW Airbus family');
+  console.log('Part of the NEW Airbus family');
 }
 
 // Split and join
@@ -560,15 +575,15 @@ const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
 console.log(newName); // 'Mr. Jonas SCHMEDTMANN'
 
 // Capitalize names
-const capitalizeName = function(name) {
-    const names = name.split(' ');
-    const namesUpper = [];
-    
-    for (const n of names) {
-        // namesUpper.push(n[0].toUpperCase() + n.slice(1));
-        namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
-    }
-    console.log(namesUpper.join(' '));
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
 };
 
 capitalizeName('jessica ann smith davis'); // 'Jessica Ann Smith Davis'
@@ -579,10 +594,10 @@ console.log(message.padStart(20, '+').padEnd(30, '+'));
 console.log('Jonas'.padStart(20, '+').padEnd(30, '+'));
 
 // Credit card masking
-const maskCreditCard = function(number) {
-    const str = number + ''; // Convert to string
-    const last = str.slice(-4);
-    return last.padStart(str.length, '*');
+const maskCreditCard = function (number) {
+  const str = number + ''; // Convert to string
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
 };
 
 console.log(maskCreditCard(64637836)); // '****7836'
@@ -592,8 +607,8 @@ console.log(maskCreditCard(43378463864647384)); // '*************7384'
 const message2 = 'Bad weather... All Departures Delayed... ';
 console.log(message2.repeat(5));
 
-const planesInLine = function(n) {
-    console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
 };
 
 planesInLine(5); // There are 5 planes in line 🛩🛩🛩🛩🛩
@@ -602,19 +617,23 @@ planesInLine(5); // There are 5 planes in line 🛩🛩🛩🛩🛩
 ## Practical Exercises
 
 ### String Exercise: Camel Case Converter
+
 ```js
 document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 
-document.querySelector('button').addEventListener('click', function() {
-    const text = document.querySelector('textarea').value;
-    const rows = text.split('\n');
-    
-    for (const [i, row] of rows.entries()) {
-        const [first, second] = row.toLowerCase().trim().split('_');
-        const output = `${first}${second.replace(second[0], second[0].toUpperCase())}`;
-        console.log(`${output.padEnd(20)}${'✅'.repeat(i + 1)}`);
-    }
+document.querySelector('button').addEventListener('click', function () {
+  const text = document.querySelector('textarea').value;
+  const rows = text.split('\n');
+
+  for (const [i, row] of rows.entries()) {
+    const [first, second] = row.toLowerCase().trim().split('_');
+    const output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+    console.log(`${output.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
 });
 
 // Input:
@@ -633,22 +652,47 @@ document.querySelector('button').addEventListener('click', function() {
 ```
 
 ### Array/Object Destructuring Challenge
+
 ```js
 const game = {
-    team1: 'Bayern Munich',
-    team2: 'Borrussia Dortmund',
-    players: [
-        ['Neuer', 'Pavard', 'Martinez', 'Alaba', 'Davies', 'Kimmich', 'Goretzka', 'Coman', 'Muller', 'Gnarby', 'Lewandowski'],
-        ['Burki', 'Schulz', 'Hummels', 'Akanji', 'Hakimi', 'Weigl', 'Witsel', 'Hazard', 'Brandt', 'Sancho', 'Gotze'],
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
     ],
-    score: '4:0',
-    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-    date: 'Nov 9th, 2037',
-    odds: {
-        team1: 1.33,
-        x: 3.25,
-        team2: 6.5,
-    },
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
 };
 
 // 1. Create one player array for each team
@@ -667,12 +711,14 @@ console.log(allPlayers);
 const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
 
 // 5. Create variables for odds
-const {odds: {team1, x: draw, team2}} = game;
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
 console.log(team1, draw, team2);
 
 // 6. Function that receives unlimited number of player names
-const printGoals = function(...players) {
-    console.log(`${players.length} goals were scored`);
+const printGoals = function (...players) {
+  console.log(`${players.length} goals were scored`);
 };
 
 printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
@@ -695,4 +741,4 @@ team1 > team2 && console.log('Team 2 is more likely to win');
 
 ---
 
-*These modern features make JavaScript code more concise and powerful! 🚀*
+_These modern features make JavaScript code more concise and powerful! 🚀_

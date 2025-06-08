@@ -3,18 +3,21 @@
 ## Key Concepts
 
 - **JavaScript Engine**
+
   - V8 (Chrome, Node.js), SpiderMonkey (Firefox), JavaScriptCore (Safari)
   - **Call stack**: Execution context stack (LIFO - Last In, First Out)
   - **Heap**: Memory allocation for objects
   - **Compilation vs Interpretation**: JS is interpreted and just-in-time compiled
 
 - **Execution Context**
+
   - Environment where JavaScript code is executed
   - **Global Execution Context**: Created for top-level code
   - **Function Execution Context**: Created for each function call
   - Contains: Variable Environment, Scope Chain, `this` keyword
 
 - **Hoisting**
+
   - Variables and function declarations are "moved" to the top
   - **Function declarations**: Fully hoisted (can call before declaration)
   - **var variables**: Hoisted but initialized with `undefined`
@@ -22,6 +25,7 @@
   - **Function expressions/arrows**: Not hoisted
 
 - **Scope and Scope Chain**
+
   - **Global scope**: Accessible everywhere
   - **Function scope**: Accessible only within function
   - **Block scope**: `let`/`const` are block-scoped, `var` is not
@@ -43,7 +47,7 @@
 console.log(addDeclaration(2, 3)); // Works! Returns 5
 
 function addDeclaration(a, b) {
-    return a + b;
+  return a + b;
 }
 
 // Variable hoisting
@@ -59,9 +63,9 @@ const year = 1991;
 console.log(addExpression); // undefined
 console.log(addExpression(2, 3)); // TypeError: addExpression is not a function
 
-var addExpression = function(a, b) {
-    return a + b;
-}
+var addExpression = function (a, b) {
+  return a + b;
+};
 
 // Arrow functions and hoisting
 console.log(addArrow); // ReferenceError: Cannot access 'addArrow' before initialization
@@ -74,7 +78,7 @@ if (!numProducts) deleteShoppingCart(); // This will run!
 var numProducts = 10;
 
 function deleteShoppingCart() {
-    console.log('All products deleted!');
+  console.log('All products deleted!');
 }
 ```
 
@@ -85,64 +89,64 @@ function deleteShoppingCart() {
 const myName = 'Jonas';
 
 function first() {
-    // Function scope
-    const age = 30;
-    
-    if (age >= 30) {
-        // Block scope
-        const decade = 3;
-        var millenial = true;
-    }
-    
-    function second() {
-        // Function scope (nested)
-        const job = 'teacher';
-        
-        // Scope chain in action
-        console.log(`${myName} is a ${age}-year old ${job}`); // Works!
-    }
-    
-    second();
-    
-    // console.log(job); // ReferenceError: job is not defined
-    console.log(millenial); // Works! var is function-scoped
-    // console.log(decade); // ReferenceError: decade is not defined
+  // Function scope
+  const age = 30;
+
+  if (age >= 30) {
+    // Block scope
+    const decade = 3;
+    var millenial = true;
+  }
+
+  function second() {
+    // Function scope (nested)
+    const job = 'teacher';
+
+    // Scope chain in action
+    console.log(`${myName} is a ${age}-year old ${job}`); // Works!
+  }
+
+  second();
+
+  // console.log(job); // ReferenceError: job is not defined
+  console.log(millenial); // Works! var is function-scoped
+  // console.log(decade); // ReferenceError: decade is not defined
 }
 
 first();
 
 // Variable lookup in scope chain
 function calcAge(birthYear) {
-    const age = 2037 - birthYear;
-    
-    function printAge() {
-        let output = `${firstName}, you are ${age}, born in ${birthYear}`;
-        console.log(output);
-        
-        if (birthYear >= 1981 && birthYear <= 1996) {
-            var millenial = true;
-            
-            // Creating NEW variable with same name as outer scope's variable
-            const firstName = 'Steven';
-            
-            // Reassigning outer scope's variable
-            output = 'NEW OUTPUT!';
-            
-            const str = `Oh, and you're a millenial, ${firstName}`;
-            console.log(str);
-            
-            function add(a, b) {
-                return a + b;
-            }
-        }
-        
-        console.log(millenial); // Works! var is function-scoped
-        // console.log(str); // ReferenceError: str is not defined
-        console.log(output); // "NEW OUTPUT!"
+  const age = 2037 - birthYear;
+
+  function printAge() {
+    let output = `${firstName}, you are ${age}, born in ${birthYear}`;
+    console.log(output);
+
+    if (birthYear >= 1981 && birthYear <= 1996) {
+      var millenial = true;
+
+      // Creating NEW variable with same name as outer scope's variable
+      const firstName = 'Steven';
+
+      // Reassigning outer scope's variable
+      output = 'NEW OUTPUT!';
+
+      const str = `Oh, and you're a millenial, ${firstName}`;
+      console.log(str);
+
+      function add(a, b) {
+        return a + b;
+      }
     }
-    
-    printAge();
-    return age;
+
+    console.log(millenial); // Works! var is function-scoped
+    // console.log(str); // ReferenceError: str is not defined
+    console.log(output); // "NEW OUTPUT!"
+  }
+
+  printAge();
+  return age;
 }
 
 const firstName = 'Jonas';
@@ -156,32 +160,32 @@ calcAge(1991);
 console.log(this); // Window object (in browser)
 
 // Function this
-const calcAge = function(birthYear) {
-    console.log(2037 - birthYear);
-    console.log(this); // undefined (strict mode)
+const calcAge = function (birthYear) {
+  console.log(2037 - birthYear);
+  console.log(this); // undefined (strict mode)
 };
 calcAge(1991);
 
 // Arrow function this (lexical this)
-const calcAgeArrow = birthYear => {
-    console.log(2037 - birthYear);
-    console.log(this); // Window object (parent scope)
+const calcAgeArrow = (birthYear) => {
+  console.log(2037 - birthYear);
+  console.log(this); // Window object (parent scope)
 };
 calcAgeArrow(1980);
 
 // Method this
 const jonas = {
-    year: 1991,
-    calcAge: function() {
-        console.log(this); // jonas object
-        console.log(2037 - this.year);
-    }
+  year: 1991,
+  calcAge: function () {
+    console.log(this); // jonas object
+    console.log(2037 - this.year);
+  },
 };
 jonas.calcAge();
 
 // Method borrowing
 const matilda = {
-    year: 2017
+  year: 2017,
 };
 
 matilda.calcAge = jonas.calcAge; // Method borrowing
@@ -192,37 +196,37 @@ const f = jonas.calcAge;
 f(); // this = undefined
 
 // this in event listeners
-document.querySelector('.btn').addEventListener('click', function() {
-    console.log(this); // DOM element that triggered the event
-    this.style.backgroundColor = 'red';
+document.querySelector('.btn').addEventListener('click', function () {
+  console.log(this); // DOM element that triggered the event
+  this.style.backgroundColor = 'red';
 });
 
 // Arrow functions don't get their own this
 const jonas2 = {
-    firstName: 'Jonas',
-    year: 1991,
-    calcAge: function() {
-        console.log(this); // jonas2 object
-        
-        // Solution 1: Store this in variable
-        const self = this;
-        const isMillenial = function() {
-            console.log(self.year >= 1981 && self.year <= 1996);
-        };
-        
-        // Solution 2: Use arrow function
-        const isMillenial2 = () => {
-            console.log(this.year >= 1981 && this.year <= 1996); // Works!
-        };
-        
-        isMillenial();
-        isMillenial2();
-    },
-    
-    // Never use arrow function as method!
-    greet: () => {
-        console.log(`Hey ${this.firstName}`); // undefined! this = window
-    }
+  firstName: 'Jonas',
+  year: 1991,
+  calcAge: function () {
+    console.log(this); // jonas2 object
+
+    // Solution 1: Store this in variable
+    const self = this;
+    const isMillenial = function () {
+      console.log(self.year >= 1981 && self.year <= 1996);
+    };
+
+    // Solution 2: Use arrow function
+    const isMillenial2 = () => {
+      console.log(this.year >= 1981 && this.year <= 1996); // Works!
+    };
+
+    isMillenial();
+    isMillenial2();
+  },
+
+  // Never use arrow function as method!
+  greet: () => {
+    console.log(`Hey ${this.firstName}`); // undefined! this = window
+  },
 };
 
 jonas2.greet(); // Hey undefined
@@ -241,9 +245,9 @@ console.log(lastName, oldLastName); // Davis Williams
 
 // Objects
 const jessica = {
-    firstName: 'Jessica',
-    lastName: 'Williams',
-    age: 27
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
 };
 
 const marriedJessica = jessica; // Same reference!
@@ -256,10 +260,10 @@ console.log('After marriage:', marriedJessica);
 
 // Copying objects
 const jessica2 = {
-    firstName: 'Jessica',
-    lastName: 'Williams',
-    age: 27,
-    family: ['Alice', 'Bob']
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
 };
 
 // Shallow copy
@@ -287,27 +291,27 @@ const a = 'Hello!';
 first();
 
 function first() {
-    console.log('Inside first function');
-    second();
-    console.log('Back in first function');
+  console.log('Inside first function');
+  second();
+  console.log('Back in first function');
 }
 
 function second() {
-    console.log('Inside second function');
-    third();
-    console.log('Back in second function');
+  console.log('Inside second function');
+  third();
+  console.log('Back in second function');
 }
 
 function third() {
-    console.log('Inside third function');
-    console.log(a); // Variable lookup through scope chain
-    console.log('End of third function');
+  console.log('Inside third function');
+  console.log(a); // Variable lookup through scope chain
+  console.log('End of third function');
 }
 
 // Call stack execution order:
 // 1. Global Execution Context
 // 2. first() execution context
-// 3. second() execution context  
+// 3. second() execution context
 // 4. third() execution context
 // Then unwinding: third() -> second() -> first() -> global
 ```
@@ -322,13 +326,13 @@ b();
 console.log(x);
 
 function a() {
-    var x = 10;
-    console.log(x);
+  var x = 10;
+  console.log(x);
 }
 
 function b() {
-    var x = 100;
-    console.log(x);
+  var x = 100;
+  console.log(x);
 }
 
 // Execution:
@@ -339,15 +343,15 @@ function b() {
 
 // Variable Environment example
 function outer() {
-    var a = 1;
-    
-    function inner() {
-        var b = 2;
-        console.log(a + b); // 3 (can access outer scope)
-    }
-    
-    inner();
-    // console.log(b); // ReferenceError: b is not defined
+  var a = 1;
+
+  function inner() {
+    var b = 2;
+    console.log(a + b); // 3 (can access outer scope)
+  }
+
+  inner();
+  // console.log(b); // ReferenceError: b is not defined
 }
 
 outer();
@@ -371,24 +375,24 @@ const year = 1991;
 // console.log(addExpression(2, 3)); // TypeError: Cannot read property of undefined
 // console.log(addArrow(2, 3)); // ReferenceError: Cannot access before initialization
 
-var addExpression = function(a, b) {
-    return a + b;
+var addExpression = function (a, b) {
+  return a + b;
 };
 
 const addArrow = (a, b) => a + b;
 
 // Best practice: Declare variables at the top
 function bestPractice() {
-    // All declarations at top
-    let x, y, z;
-    const PI = 3.14159;
-    
-    // Then use them
-    x = 10;
-    y = 20;
-    z = x + y;
-    
-    return z * PI;
+  // All declarations at top
+  let x, y, z;
+  const PI = 3.14159;
+
+  // Then use them
+  x = 10;
+  y = 20;
+  z = x + y;
+
+  return z * PI;
 }
 ```
 
@@ -397,11 +401,11 @@ function bestPractice() {
 ```js
 // Understanding memory allocation
 function createObjects() {
-    // These objects will be created in the heap
-    const obj1 = { name: 'Object 1' };
-    const obj2 = { name: 'Object 2', ref: obj1 };
-    
-    return obj2;
+  // These objects will be created in the heap
+  const obj1 = { name: 'Object 1' };
+  const obj2 = { name: 'Object 2', ref: obj1 };
+
+  return obj2;
 }
 
 let result = createObjects();
@@ -413,15 +417,15 @@ result = null;
 
 // Memory leak example (avoid this!)
 function memoryLeak() {
-    const element = document.getElementById('button');
-    
-    element.addEventListener('click', function() {
-        // This creates a closure that keeps 'element' in memory
-        console.log('Button clicked');
-    });
-    
-    // Even if element is removed from DOM, it stays in memory
-    // due to the event listener closure
+  const element = document.getElementById('button');
+
+  element.addEventListener('click', function () {
+    // This creates a closure that keeps 'element' in memory
+    console.log('Button clicked');
+  });
+
+  // Even if element is removed from DOM, it stays in memory
+  // due to the event listener closure
 }
 ```
 
@@ -430,28 +434,28 @@ function memoryLeak() {
 ```js
 // Understanding the call stack in DevTools
 function buggyFunction() {
-    console.trace('Call stack trace'); // Shows call stack
-    debugger; // Pauses execution in DevTools
-    
-    const result = someCalculation();
-    return result;
+  console.trace('Call stack trace'); // Shows call stack
+  debugger; // Pauses execution in DevTools
+
+  const result = someCalculation();
+  return result;
 }
 
 function someCalculation() {
-    const a = 10;
-    const b = 0;
-    return a / b; // Infinity - potential bug
+  const a = 10;
+  const b = 0;
+  return a / b; // Infinity - potential bug
 }
 
 // Using console.log to understand execution
 function demonstrateExecution() {
-    console.log('1. Function starts');
-    
-    setTimeout(() => {
-        console.log('3. Timeout callback (async)');
-    }, 0);
-    
-    console.log('2. Function ends');
+  console.log('1. Function starts');
+
+  setTimeout(() => {
+    console.log('3. Timeout callback (async)');
+  }, 0);
+
+  console.log('2. Function ends');
 }
 
 demonstrateExecution();
@@ -473,32 +477,32 @@ demonstrateExecution();
 ```js
 // Mistake 1: Accidental globals
 function oops() {
-    // Forgot var/let/const - creates global variable!
-    accidentalGlobal = 'I am global now!';
+  // Forgot var/let/const - creates global variable!
+  accidentalGlobal = 'I am global now!';
 }
 
 // Mistake 2: this in arrow functions
 const obj = {
-    name: 'Test',
-    getName: () => {
-        return this.name; // undefined! Arrow function doesn't have its own 'this'
-    }
+  name: 'Test',
+  getName: () => {
+    return this.name; // undefined! Arrow function doesn't have its own 'this'
+  },
 };
 
 // Mistake 3: Temporal Dead Zone
 function mistake() {
-    console.log(x); // ReferenceError
-    let x = 5;
+  console.log(x); // ReferenceError
+  let x = 5;
 }
 
 // Mistake 4: Variable shadowing confusion
 let x = 1;
 function shadow() {
-    console.log(x); // ReferenceError: Cannot access 'x' before initialization
-    let x = 2; // This shadows the outer x, but it's not yet initialized
+  console.log(x); // ReferenceError: Cannot access 'x' before initialization
+  let x = 2; // This shadows the outer x, but it's not yet initialized
 }
 ```
 
 ---
 
-*Understanding these concepts makes you a much better JavaScript developer! 🧠*
+_Understanding these concepts makes you a much better JavaScript developer! 🧠_
