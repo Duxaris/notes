@@ -1,7 +1,7 @@
 site_name: JavaScript & React Course Notes
 site_description: Comprehensive notes for learning JavaScript and React
 site_author: Your Name
-site_url: https://yourname.github.io/notes
+site_url: https://duxaris.github.io/notes
 
 theme:
   name: material
