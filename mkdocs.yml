@@ -1,0 +1,85 @@
+site_name: JavaScript & React Course Notes
+site_description: Comprehensive notes for learning JavaScript and React
+site_author: Your Name
+site_url: https://duxaris.github.io/notes
+
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - def_list
+
+nav:
+  - Home: index.md
+  - JavaScript:
+      - Overview: javascript/index.md
+      - Foundation:
+          - 'Section 1: Welcome': javascript/01-welcome.md
+          - 'Section 2: Fundamentals Part 1': javascript/02-fundamentals-part-1.md
+          - 'Section 3: Fundamentals Part 2': javascript/03-fundamentals-part-2.md
+          - 'Section 4: How to Navigate': javascript/04-how-to-navigate.md
+      - Browser & Advanced:
+          - 'Section 7: DOM & Events': javascript/07-dom-and-events.md
+          - 'Section 8: Behind the Scenes': javascript/08-behind-the-scenes.md
+          - 'Section 9: Data Structures & Operators': javascript/09-data-structures-operators.md
+  - React:
+      - Overview: react/index.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/yourusername
+
+copyright: Copyright &copy; 2025 Your Name
