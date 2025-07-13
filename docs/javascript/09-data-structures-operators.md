@@ -328,6 +328,86 @@ for (const [i, el] of menu.entries()) {
 console.log([...menu.entries()]);
 ```
 
+### Looping Objects: Object Keys, Values, and Entries
+
+```js
+// Sample opening hours object
+const openingHours = {
+  thu: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+// Property NAMES (keys) - Object.keys()
+const properties = Object.keys(openingHours);
+console.log(properties); // ['thu', 'fri', 'sat']
+
+// Building dynamic strings with keys
+let openStr = `We are open on ${properties.length} days: `;
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+console.log(openStr); // "We are open on 3 days: thu, fri, sat, "
+
+// Property VALUES - Object.values()
+const values = Object.values(openingHours);
+console.log(values);
+// [{ open: 12, close: 22 }, { open: 11, close: 23 }, { open: 0, close: 24 }]
+
+// ENTIRE object entries - Object.entries()
+const entries = Object.entries(openingHours);
+console.log(entries);
+// [
+//   ['thu', { open: 12, close: 22 }],
+//   ['fri', { open: 11, close: 23 }],
+//   ['sat', { open: 0, close: 24 }]
+// ]
+
+// Destructuring in for-of loop with entries
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
+}
+// Output:
+// On thu we open at 12 and close at 22
+// On fri we open at 11 and close at 23
+// On sat we open at 0 and close at 24
+
+// Practical example: Restaurant hours checker
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+console.log('Restaurant Schedule:');
+for (const day of days) {
+  const hours = openingHours[day];
+  if (hours) {
+    console.log(`${day}: ${hours.open}:00 - ${hours.close}:00`);
+  } else {
+    console.log(`${day}: Closed`);
+  }
+}
+
+// Converting objects for easier manipulation
+const hoursArray = Object.entries(openingHours);
+const totalHours = hoursArray.reduce((total, [day, { open, close }]) => {
+  return total + (close - open);
+}, 0);
+console.log(`Total weekly hours: ${totalHours}`);
+
+// Finding specific information
+const busyDays = Object.entries(openingHours)
+  .filter(([day, { open, close }]) => close - open > 12)
+  .map(([day]) => day);
+console.log('Busy days (open >12 hours):', busyDays);
+```
+
 ### Enhanced Object Literals (ES6)
 
 ```js
