@@ -84,6 +84,15 @@ fruits.includes('apple'); // true
 fruits.map((f) => f.toUpperCase()); // ['APPLE', 'BANANA']
 fruits.filter((f) => f.length > 5); // ['banana', 'orange']
 fruits.find((f) => f.startsWith('a')); // 'apple'
+
+// Get index and value together
+fruits.entries(); // Iterator of [index, value] pairs
+for (const [i, fruit] of fruits.entries()) {
+  console.log(`${i}: ${fruit}`); // 0: apple, 1: banana, 2: orange
+}
+
+// Convert entries to array to see structure
+console.log([...fruits.entries()]); // [[0, 'apple'], [1, 'banana'], [2, 'orange']]
 ```
 
 ## Objects
