@@ -510,6 +510,79 @@ console.log(staffUnique);
 
 // Count unique letters
 console.log(new Set('jonasschmedtmann').size); // 11
+
+// New Set Methods (ES2024) - Set operations
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+// Intersection - common elements in both sets
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log('Common foods:', [...commonFoods]); // ['tomatoes', 'garlic']
+
+// Union - all unique elements from both sets
+const allFoods = italianFoods.union(mexicanFoods);
+console.log('All foods:', [...allFoods]);
+// ['pasta', 'gnocchi', 'tomatoes', 'olive oil', 'garlic', 'basil', 'tortillas', 'beans', 'rice', 'avocado']
+
+// Difference - elements in first set but not in second
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log('Unique to Italian:', [...uniqueItalianFoods]); // ['pasta', 'gnocchi', 'olive oil', 'basil']
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log('Unique to Mexican:', [...uniqueMexicanFoods]); // ['tortillas', 'beans', 'rice', 'avocado']
+
+// Symmetric Difference - elements in either set but not in both
+const uniqueToEachCuisine = italianFoods.symmetricDifference(mexicanFoods);
+console.log('Unique to each cuisine:', [...uniqueToEachCuisine]);
+// ['pasta', 'gnocchi', 'olive oil', 'basil', 'tortillas', 'beans', 'rice', 'avocado']
+
+// isDisjointFrom - check if sets have no common elements
+console.log(
+  'Cuisines share ingredients:',
+  !italianFoods.isDisjointFrom(mexicanFoods)
+); // true
+
+const asianFoods = new Set(['rice', 'noodles', 'soy sauce']);
+console.log(
+  'Italian and Asian disjoint:',
+  italianFoods.isDisjointFrom(asianFoods)
+); // true
+
+// isSubsetOf - check if all elements of one set are in another
+const herbs = new Set(['basil', 'garlic']);
+console.log('Herbs subset of Italian:', herbs.isSubsetOf(italianFoods)); // true
+
+// isSupersetOf - check if set contains all elements of another set
+console.log('Italian superset of herbs:', italianFoods.isSupersetOf(herbs)); // true
+
+// Practical example: Menu analysis
+const vegetarianOptions = new Set([
+  'tomatoes',
+  'beans',
+  'rice',
+  'avocado',
+  'basil',
+]);
+const veggieItalian = italianFoods.intersection(vegetarianOptions);
+const veggieMexican = mexicanFoods.intersection(vegetarianOptions);
+
+console.log('Vegetarian Italian options:', [...veggieItalian]);
+console.log('Vegetarian Mexican options:', [...veggieMexican]);
 ```
 
 ### Maps

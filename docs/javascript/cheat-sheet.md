@@ -293,6 +293,45 @@ const person = {
 // Set (unique values)
 const uniqueNumbers = new Set([1, 2, 2, 3, 3, 4]); // {1, 2, 3, 4}
 
+// New Set Methods (ES2024) - Set operations
+const italianFoods = new Set([
+  'pasta',
+  'pizza',
+  'risotto',
+  'tomatoes',
+  'garlic',
+]);
+const mexicanFoods = new Set(['tacos', 'beans', 'rice', 'tomatoes', 'garlic']);
+
+// Intersection - common elements in both sets
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log([...commonFoods]); // ['tomatoes', 'garlic']
+
+// Union - all unique elements from both sets
+const allFoods = italianFoods.union(mexicanFoods);
+console.log([...allFoods]); // ['pasta', 'pizza', 'risotto', 'tomatoes', 'garlic', 'tacos', 'beans', 'rice']
+
+// Difference - elements in first set but not in second
+const uniqueItalian = italianFoods.difference(mexicanFoods);
+console.log([...uniqueItalian]); // ['pasta', 'pizza', 'risotto']
+
+// Symmetric Difference - elements in either set but not in both
+const uniqueToEach = italianFoods.symmetricDifference(mexicanFoods);
+console.log([...uniqueToEach]); // ['pasta', 'pizza', 'risotto', 'tacos', 'beans', 'rice']
+
+// isDisjointFrom - check if sets have no common elements
+console.log(italianFoods.isDisjointFrom(mexicanFoods)); // false (they share tomatoes, garlic)
+
+const asianFoods = new Set(['rice', 'noodles', 'soy sauce']);
+console.log(italianFoods.isDisjointFrom(asianFoods)); // true (no common elements)
+
+// isSubsetOf - check if all elements of one set are in another
+const pastaTypes = new Set(['pasta']);
+console.log(pastaTypes.isSubsetOf(italianFoods)); // true
+
+// isSupersetOf - check if set contains all elements of another set
+console.log(italianFoods.isSupersetOf(pastaTypes)); // true
+
 // Map (key-value pairs with any key type)
 const userRoles = new Map();
 userRoles.set(user1, 'admin');

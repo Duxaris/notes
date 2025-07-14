@@ -71,6 +71,7 @@ nav:
       - Section 7 - DOM and Events: javascript/07-dom-and-events.md
       - Section 8 - Behind the Scenes: javascript/08-behind-the-scenes.md
       - Section 9 - Data Structures: javascript/09-data-structures-operators.md
+      - Section 10 - Functions Deep Dive: javascript/10-closer-look-at-functions.md
   - React:
       - react/index.md
 
