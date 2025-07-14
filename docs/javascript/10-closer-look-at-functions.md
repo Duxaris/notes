@@ -3,30 +3,35 @@
 ## Key Concepts
 
 - **Default Parameters**
+
   - ES6 feature allowing function parameters to have default values
   - Prevents `undefined` errors when arguments are missing
   - Can use expressions and reference other parameters
   - **Why useful**: Makes functions more robust and user-friendly
 
 - **Passing Arguments: Value vs Reference**
+
   - **Primitives**: Passed by value (copies are made)
   - **Objects**: Passed by reference (same object in memory)
   - JavaScript doesn't have "pass by reference" for primitives
   - **Key insight**: Functions can't change primitive values but can mutate objects
 
 - **First-Class Functions**
+
   - Functions are treated as values in JavaScript
   - Can be stored in variables, passed as arguments, returned from functions
   - Enables functional programming patterns
   - **Mental model**: Functions are just another type of object
 
 - **Higher-Order Functions**
+
   - Functions that receive other functions as arguments OR return functions
   - Examples: `forEach`, `map`, `filter`, event listeners
   - Enable powerful abstractions and code reuse
   - **Pattern**: Separate what we do from how we do it
 
 - **The `call`, `apply`, and `bind` Methods**
+
   - Manually set the `this` keyword in function calls
   - **`call()`**: Calls function with specified `this` and arguments
   - **`apply()`**: Like `call()` but takes array of arguments
@@ -34,6 +39,7 @@
   - **Use case**: Borrowing methods between objects
 
 - **Immediately Invoked Function Expressions (IIFE)**
+
   - Functions that execute immediately after definition
   - Creates private scope, prevents variable pollution
   - Pattern: `(function() { /* code */ })()`
@@ -67,7 +73,7 @@ const createBooking = function (
     numPassengers,
     price,
   };
-  
+
   console.log(booking);
   bookings.push(booking);
 };
@@ -92,7 +98,7 @@ const jonas = {
 const checkIn = function (flightNum, passenger) {
   flightNum = 'LH999'; // Changes only the copy
   passenger.name = 'Mr. ' + passenger.name; // Changes the original object
-  
+
   if (passenger.passport === 24739479284) {
     console.log('Checked in');
   } else {
@@ -158,7 +164,7 @@ greeterHey('Jonas'); // Hey Jonas
 greeterHey('Steven'); // Hey Steven
 
 // One-liner arrow function version
-const greetArr = greeting => name => console.log(`${greeting} ${name}`);
+const greetArr = (greeting) => (name) => console.log(`${greeting} ${name}`);
 greetArr('Hi')('Jonas'); // Hi Jonas
 ```
 
@@ -169,7 +175,7 @@ const lufthansa = {
   airline: 'Lufthansa',
   iataCode: 'LH',
   bookings: [],
-  
+
   book(flightNum, name) {
     console.log(
       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
@@ -235,7 +241,9 @@ lufthansa.buyPlane = function () {
 };
 
 // Without bind, this would be the button element
-document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
 // Partial application pattern
 const addTax = (rate, value) => value + value * rate;
@@ -293,7 +301,7 @@ console.log(notPrivate); // 46 (var is function-scoped, not block-scoped)
   const app = {
     init() {
       console.log('App initialized');
-    }
+    },
   };
   app.init();
 })();
@@ -367,7 +375,7 @@ boardPassengers(180, 3);
 // Factory function using closures
 const createCounter = function (start = 0) {
   let count = start;
-  
+
   return {
     increment() {
       count++;
@@ -379,7 +387,7 @@ const createCounter = function (start = 0) {
     },
     get() {
       return count;
-    }
+    },
   };
 };
 
@@ -404,7 +412,7 @@ const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
   answers: new Array(4).fill(0),
-  
+
   registerNewAnswer() {
     // Get answer
     const answer = Number(
@@ -412,16 +420,16 @@ const poll = {
         `${this.question}\n${this.options.join('\n')}\n(Write option number)`
       )
     );
-    
+
     // Register answer
     typeof answer === 'number' &&
       answer < this.answers.length &&
       this.answers[answer]++;
-    
+
     this.displayResults();
     this.displayResults('string');
   },
-  
+
   displayResults(type = 'array') {
     if (type === 'array') {
       console.log(this.answers);
@@ -447,7 +455,7 @@ poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
 // Challenge: Create a function that keeps track of how many times it's called
 const createCallTracker = function () {
   let callCount = 0;
-  
+
   return function (message = 'Function called') {
     callCount++;
     console.log(`${message} - Call #${callCount}`);
@@ -472,13 +480,19 @@ tracker1(); // Function called - Call #3
 
 ```js
 // Compose functions together
-const add = x => y => x + y;
-const multiply = x => y => x * y;
-const subtract = x => y => y - x;
+const add = (x) => (y) => x + y;
+const multiply = (x) => (y) => x * y;
+const subtract = (x) => (y) => y - x;
 
 // Function composition utility
-const compose = (...fns) => (value) => fns.reduceRight((acc, fn) => fn(acc), value);
-const pipe = (...fns) => (value) => fns.reduce((acc, fn) => fn(acc), value);
+const compose =
+  (...fns) =>
+  (value) =>
+    fns.reduceRight((acc, fn) => fn(acc), value);
+const pipe =
+  (...fns) =>
+  (value) =>
+    fns.reduce((acc, fn) => fn(acc), value);
 
 // Usage
 const addFive = add(5);
@@ -495,14 +509,14 @@ console.log(calculate(10)); // (10 + 5) * 2 - 3 = 27
 // Cache expensive function results
 const memoize = function (fn) {
   const cache = {};
-  
+
   return function (...args) {
     const key = args.toString();
     if (cache[key]) {
       console.log('From cache');
       return cache[key];
     }
-    
+
     console.log('Calculating...');
     const result = fn.apply(this, args);
     cache[key] = result;
