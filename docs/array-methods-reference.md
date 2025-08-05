@@ -1,11 +1,30 @@
 # Array Methods Reference
 
+<style>
+.md-content__inner {
+    max-width: none !important;
+    margin: 0 !important;
+}
+.md-main__inner {
+    max-width: none !important;
+}
+.md-grid {
+    max-width: none !important;
+}
+</style>
+
 This comprehensive reference chart shows which JavaScript array method to use for different scenarios.
+
+## Which Array Method to Use?
 
 [![Array Methods Reference](assets/images/arraymethods.png)](assets/images/arraymethods.png)
 
-!!! tip "Viewing the Image"
-    Click the image above to open it in a new tab for full-size viewing.
+## Array Methods Practice Summary
+
+[![Array Methods Practice](assets/images/arraymethods2.png)](assets/images/arraymethods2.png)
+
+!!! tip "Viewing the Images"
+Click either image above to open it in a new tab for full-size viewing.
 
 ## Quick Reference Guide
 
@@ -40,4 +59,4 @@ Methods that convert arrays to other data types or structures.
 
 ---
 
-*This reference chart helps you choose the right array method for any situation in your JavaScript projects.*
+_This reference chart helps you choose the right array method for any situation in your JavaScript projects._

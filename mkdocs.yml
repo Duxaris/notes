@@ -76,6 +76,7 @@ nav:
       - Section 9 - Data Structures: javascript/09-data-structures-operators.md
       - Section 10 - Functions Deep Dive: javascript/10-closer-look-at-functions.md
       - Section 11 - Working with Arrays: javascript/11-working-with-arrays.md
+      - Section 12 - Numbers, Dates, Timers: javascript/12-numbers-dates-timers-bankist.md
   - React:
       - react/index.md
 
@@ -86,5 +87,4 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/yourusername
 
-copyright: Copyright &copy; 2025 Your Name
 copyright: Copyright &copy; 2025 Your Name
