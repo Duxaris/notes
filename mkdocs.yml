@@ -77,6 +77,8 @@ nav:
       - Section 10 - Functions Deep Dive: javascript/10-closer-look-at-functions.md
       - Section 11 - Working with Arrays: javascript/11-working-with-arrays.md
       - Section 12 - Numbers, Dates, Timers: javascript/12-numbers-dates-timers-bankist.md
+      - Section 13 - Advanced DOM and Events: javascript/13-advanced-dom-bankist.md
+      - Section 14 - Object-Oriented Programming: javascript/14-oop.md
   - React:
       - react/index.md
 
