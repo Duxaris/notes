@@ -108,20 +108,40 @@ const person = {
 console.log(person.__proto__ === Object.prototype); // true
 ```
 
-### Prototype Chain
+### Lesson 223: Prototypal Inheritance and the Prototype Chain
+
+Prototypal inheritance means objects delegate property/method lookups to their prototype. The prototype chain is the linked list of prototypes followed during lookup until null.
+
+Key points:
+
+- Every object has an internal [[Prototype]] (accessible via `__proto__` or `Object.getPrototypeOf`).
+- Methods and properties are found by walking up the chain when not on the instance.
+- `Function.prototype`, `Array.prototype`, and `Object.prototype` sit in the chain; the top is `Object.prototype` → `null`.
+- Use `isPrototypeOf` and constructor checks to reason about relationships.
 
 ```javascript
-// Prototype chain visualization
 const arr = [1, 2, 3];
 
-console.log(arr.__proto__ === Array.prototype); // true
-console.log(arr.__proto__.__proto__ === Object.prototype); // true
-console.log(arr.__proto__.__proto__.__proto__); // null (end of chain)
+// Prototypes in the chain
+console.log(Object.getPrototypeOf(arr) === Array.prototype); // true
+console.log(Object.getPrototypeOf(Array.prototype) === Object.prototype); // true
+console.log(Object.getPrototypeOf(Object.prototype)); // null
 
-// Method lookup through prototype chain
-arr.push(4); // Found in Array.prototype
-arr.toString(); // Found in Object.prototype
+// Method lookup through the chain
+arr.push(4); // Found on Array.prototype
+arr.toString(); // Found on Object.prototype (inherited by arrays)
+
+// Inspecting and checking relationships
+console.log(Array.prototype.isPrototypeOf(arr)); // true
+console.log(Object.prototype.isPrototypeOf(arr)); // true
+console.log(arr.hasOwnProperty('push')); // false (comes from prototype)
 ```
+
+Practical notes:
+
+- Prefer `Object.getPrototypeOf` over `__proto__` for readability and standards.
+- Don’t modify `Object.prototype`; be cautious extending built-ins to avoid collisions.
+- Instances share prototype methods (memory-efficient), while own properties live on the instance.
 
 ## Constructor Functions and the new Operator
 
@@ -406,73 +426,32 @@ account.latest = 50; // Calls setter
 console.log(account.movements); // [200, 530, 120, 300, 50]
 ```
 
-### Getters and Setters in Classes
+### Getters/Setters in Classes and Additional Notes
 
 ```javascript
 class PersonCl {
   constructor(fullName, birthYear) {
-    this.fullName = fullName; // Will call setter
+    this.fullName = fullName; // triggers setter
     this.birthYear = birthYear;
   }
 
-  // Getter for computed property
   get age() {
     return 2037 - this.birthYear;
   }
 
-  // Setter with validation
   set fullName(name) {
-    if (name.includes(' ')) {
-      this._fullName = name; // Store in different property
-    } else {
-      alert(`${name} is not a full name!`);
-    }
+    if (name.includes(' ')) this._fullName = name;
+    else console.log(`${name} is not a full name!`);
   }
 
-  // Getter to retrieve the actual value
   get fullName() {
     return this._fullName;
   }
-}
 
-const walter = new PersonCl('Walter White', 1965);
-console.log(walter.age); // 72 (computed property)
-console.log(walter.fullName); // 'Walter White'
-
-// walter.fullName = 'Walter'; // Shows alert
-```
-
-### Practical Getter/Setter Examples
-
-```javascript
-class Temperature {
-  constructor(celsius) {
-    this.celsius = celsius;
-  }
-
-  get fahrenheit() {
-    return (this.celsius * 9) / 5 + 32;
-  }
-
-  set fahrenheit(temp) {
-    this.celsius = ((temp - 32) * 5) / 9;
-  }
-
-  get kelvin() {
-    return this.celsius + 273.15;
-  }
-
-  set kelvin(temp) {
-    this.celsius = temp - 273.15;
+  static hey() {
+    console.log('Hey there 👋');
   }
 }
-
-const temp = new Temperature(25);
-console.log(temp.fahrenheit); // 77
-console.log(temp.kelvin); // 298.15
-
-temp.fahrenheit = 86;
-console.log(temp.celsius); // 30
 ```
 
 ## Static Methods
