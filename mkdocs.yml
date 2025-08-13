@@ -80,6 +80,7 @@ nav:
       - Section 13 - Advanced DOM and Events: javascript/13-advanced-dom-bankist.md
       - Section 14 - Object-Oriented Programming: javascript/14-oop.md
       - Section 15 - Mapty Project: javascript/15-mapty.md
+      - Section 16 - Asynchronous JavaScript: javascript/16-asynchronous-javascript.md
   - React:
       - react/index.md
 

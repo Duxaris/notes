@@ -240,7 +240,7 @@ class App {
 **Architecture Evolution:**
 
 - **📋 Phase 1** → Basic class structure and inheritance
-- **🔄 Phase 2** → Event handling and user interactions  
+- **🔄 Phase 2** → Event handling and user interactions
 - **💾 Phase 3** → Data persistence and localStorage
 - **🎯 Final** → Complete application with all features
 
